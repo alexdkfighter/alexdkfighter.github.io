@@ -6,7 +6,7 @@
   <link href="https://alexdkfighter.github.io/atom.xml" rel="self"/>
   
   <link href="https://alexdkfighter.github.io/"/>
-  <updated>2024-12-17T08:29:48.714Z</updated>
+  <updated>2024-12-17T12:24:16.584Z</updated>
   <id>https://alexdkfighter.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pwn: pwn环境</title>
+    <link href="https://alexdkfighter.github.io/2024/12/17/pwn%E7%8E%AF%E5%A2%83/"/>
+    <id>https://alexdkfighter.github.io/2024/12/17/pwn%E7%8E%AF%E5%A2%83/</id>
+    <published>2024-12-16T16:00:00.000Z</published>
+    <updated>2024-12-17T12:24:16.584Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;pwn环境建造&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#pwn环境建造&quot;&gt;&lt;/a&gt; pwn环境建造&lt;/h1&gt;
+&lt;h2 id=&quot;linux系统&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="教程" scheme="https://alexdkfighter.github.io/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
   
   <entry>
     <title>Alex介绍</title>
