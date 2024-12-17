@@ -113,6 +113,9 @@
   font-family: var(--font-icon);
   content: "\f105";
 }
+.icon-github:before {
+  content: "\f09b";
+}
 .sidebar-btn-wrapper .sidebar-toc-btn:before {
   font-family: var(--font-icon);
   content: "\f0e8";
