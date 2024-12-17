@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Alex介绍</title>
+      <link href="/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/"/>
+      <url>/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/</url>
+      
+        <content type="html"><![CDATA[<h2 id="alex博客介绍"><a class="markdownIt-Anchor" href="#alex博客介绍"></a> Alex博客介绍</h2><p>本博客由华南师范大学AlexD创建<br />希望大家能在这里学到更多<br />(更多是希望能带带新手呐)</p><h3 id="tips"><a class="markdownIt-Anchor" href="#tips"></a> tips</h3><p>由于本人为软件工程专业的ctfer, 所以博客中不只有pwn, 也有软件项目的相关内容<br />搜索时,<br />pwn有关文章题目由’pwn:'开头<br />软工项目有关由’sw:'开头</p><blockquote><p>sw指software</p></blockquote><p>所有的内容都有标签等进行分类, 可以快捷查看<br />本网站支持rss, 可以用rss阅读器订阅噢!<br /><a href="https://alexdkfighter.github.io/atom.xml">https://alexdkfighter.github.io/atom.xml</a></p><p>大家也可以去我的github看看(头像下面就有)<br />更多请到关于</p><h3 id="联系方式"><a class="markdownIt-Anchor" href="#联系方式"></a> 联系方式</h3><p>本人邮箱: <a href="mailto:13695242581@163.com">13695242581@163.com</a></p><h2 id="关于评论"><a class="markdownIt-Anchor" href="#关于评论"></a> 关于评论</h2><p>该页面是让新手进来不会蒙的, 评论就不给大家开了呐</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 新手入门 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>pwn: pwn环境</title>
       <link href="/2024/12/17/pwn%E7%8E%AF%E5%A2%83/"/>
       <url>/2024/12/17/pwn%E7%8E%AF%E5%A2%83/</url>
@@ -23,31 +48,6 @@
             <tag> 新手入门 </tag>
             
             <tag> pwn基础 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Alex介绍</title>
-      <link href="/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/"/>
-      <url>/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/</url>
-      
-        <content type="html"><![CDATA[<h2 id="alex博客介绍"><a class="markdownIt-Anchor" href="#alex博客介绍"></a> Alex博客介绍</h2><p>本博客由华南师范大学AlexD创建<br />希望大家能在这里学到更多<br />(更多是希望能带带新手呐)</p><h3 id="tips"><a class="markdownIt-Anchor" href="#tips"></a> tips</h3><p>由于本人为软件工程专业的ctfer, 所以博客中不只有pwn, 也有软件项目的相关内容<br />搜索时,<br />pwn有关文章题目由’pwn:'开头<br />软工项目有关由’sw:'开头</p><blockquote><p>sw指software</p></blockquote><p>所有的内容都有标签等进行分类, 可以快捷查看<br />本网站支持rss, 可以用rss阅读器订阅噢!<br /><a href="https://alexdkfighter.github.io/atom.xml">https://alexdkfighter.github.io/atom.xml</a></p><p>大家也可以去我的github看看(头像下面就有)<br />更多请到关于</p><h3 id="联系方式"><a class="markdownIt-Anchor" href="#联系方式"></a> 联系方式</h3><p>本人邮箱: <a href="mailto:13695242581@163.com">13695242581@163.com</a></p><h2 id="关于评论"><a class="markdownIt-Anchor" href="#关于评论"></a> 关于评论</h2><p>该页面是让新手进来不会蒙的, 评论就不给大家开了呐</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 教程 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 新手入门 </tag>
             
         </tags>
       
