@@ -6,7 +6,7 @@
   <link href="https://alexdkfighter.github.io/atom.xml" rel="self"/>
   
   <link href="https://alexdkfighter.github.io/"/>
-  <updated>2024-12-19T08:17:16.234Z</updated>
+  <updated>2024-12-19T14:39:15.247Z</updated>
   <id>https://alexdkfighter.github.io/</id>
   
   <author>
@@ -21,8 +21,18 @@
     <link href="https://alexdkfighter.github.io/2024/12/19/pwn/%E6%A0%88%E4%B8%8Afmt%E5%AD%A6%E4%B9%A0/"/>
     <id>https://alexdkfighter.github.io/2024/12/19/pwn/%E6%A0%88%E4%B8%8Afmt%E5%AD%A6%E4%B9%A0/</id>
     <published>2024-12-18T16:00:00.000Z</published>
-    <updated>2024-12-19T08:17:16.234Z</updated>
+    <updated>2024-12-19T14:39:15.247Z</updated>
     
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天在学fmt，觉得自己会忘记，写下这个&lt;/p&gt;
+&lt;h2 id=&quot;格式化字符串对应的转义&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#格式化字符串对应的转义&quot;&gt;&lt;/a&gt; 格式化字符串对应的转义&lt;/h2&gt;
+&lt;p&gt;%d</summary>
+        
+      
     
     
     
