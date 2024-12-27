@@ -6,7 +6,7 @@
   <link href="https://alexdkfighter.github.io/atom.xml" rel="self"/>
   
   <link href="https://alexdkfighter.github.io/"/>
-  <updated>2024-12-22T08:22:42.462Z</updated>
+  <updated>2024-12-27T02:36:13.395Z</updated>
   <id>https://alexdkfighter.github.io/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pwn: 沙箱入门</title>
+    <link href="https://alexdkfighter.github.io/2024/12/27/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/"/>
+    <id>https://alexdkfighter.github.io/2024/12/27/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/</id>
+    <published>2024-12-26T16:00:00.000Z</published>
+    <updated>2024-12-27T02:36:13.395Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;沙箱，用来控制shellcode的。在函数中会有sandbox函数。&lt;br /&gt;
+我们用Newstar的一个题为例子讲解。&lt;/p&gt;
+&lt;h2 id=&quot;如何查看沙箱&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#如何查看沙箱&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pwn: canary爆破</title>
+    <link href="https://alexdkfighter.github.io/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/"/>
+    <id>https://alexdkfighter.github.io/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/</id>
+    <published>2024-12-26T16:00:00.000Z</published>
+    <updated>2024-12-27T03:53:09.015Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;canary爆破原理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#canary爆破原理&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
   
   <entry>
     <title>pwn: ret2csu</title>

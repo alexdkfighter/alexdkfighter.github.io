@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>pwn: 沙箱入门</title>
+      <link href="/2024/12/27/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/"/>
+      <url>/2024/12/27/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[<p>沙箱，用来控制shellcode的。在函数中会有sandbox函数。<br />我们用Newstar的一个题为例子讲解。</p><h2 id="如何查看沙箱"><a class="markdownIt-Anchor" href="#如何查看沙箱"></a> 如何查看沙箱</h2><h3 id="检测工具seccomp-tools"><a class="markdownIt-Anchor" href="#检测工具seccomp-tools"></a> 检测工具seccomp-tools</h3><h4 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装：</h4><p>sudo apt install gcc ruby-dev<br />sudo gem install seccomp-tools</p><h4 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用：</h4><p>seccomp-tools dump ./pwn<br /><a href="https://postimg.cc/7JY5dvB9"><img src="https://i.postimg.cc/KjttKxB6/2024-12-25-164132.png" alt="2024-12-25-164132.png" /></a><br />这样可以看到我们被允许使用的函数有3个：sendfile、execve、exeveat</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> pwn初级 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pwn基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pwn: canary爆破</title>
+      <link href="/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/"/>
+      <url>/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/</url>
+      
+        <content type="html"><![CDATA[<h2 id="canary爆破原理"><a class="markdownIt-Anchor" href="#canary爆破原理"></a> canary爆破原理</h2><p>对于Canary，虽然每次进程重启后Canary不同，但是同一个进程中的不同线程的Cannary是相同的，并且通过fork函数创建的子进程中的canary也是相同的，因为fork函数会直接拷贝父进程的内存。而且fork在canary报错之后会重新运行，不会改变canary。<br />所以见到fork大概率是canary爆破的问题。<br />fork即子线程创建函数：</p><ul><li>在父进程中，返回新创建的子进程的PID。</li><li>在子进程中，返回0。</li><li>如果发生错误，<code>fork</code> 返回-1，父进程会获得一个负值。</li></ul><h2 id="题目示例"><a class="markdownIt-Anchor" href="#题目示例"></a> 题目示例</h2><p>我们用NewStar的题目来做示例。<a href="https://github.com/alexdkfighter/CTFblog-challenge/tree/main/canary">ezcanary</a><br /><a href="https://postimg.cc/V0q6gt2x"><img src="https://i.postimg.cc/yx5ZVXj8/2024-12-27-110419.png" alt="2024-12-27-110419.png" /></a><br />可以发现源代码中有fork，且有canary。<br />我们需要用while来反复使用fork来爆破canary。<br />所以我们用for循环，在子线程中修改canary的一个字节的值，如果修改错误，会报错，但不会影响父线程。而且有while，所以可以无限制的尝试。</p><p>在脚本中正是用aaa函数爆破一个字节的canary。<br />用bbb完成循环，爆破canary。<br />而getshell是已有的后门函数。<br />p64(0)则还是为了添加一个0x8，移动到ret。<br />当爆破完了之后，输入cat flag跳出循环。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> pwn初级 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pwn基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>pwn: ret2csu</title>
       <link href="/2024/12/22/pwn/ret2csu/"/>
       <url>/2024/12/22/pwn/ret2csu/</url>

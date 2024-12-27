@@ -12,7 +12,7 @@
   <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_tq6stt6tcg';window.REIMU_CONFIG.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":false,"count":80,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};window.REIMU_CONFIG.code_block = {"expand":true};</script>
   
   <title>
-    友情链接 |
+    pwn: canary爆破 |
     
     Alex
   </title>
@@ -27,19 +27,20 @@
 
   
   
-    <meta name="description" content="本站信息 网址: https:&#x2F;&#x2F;alexdkfighter.github.io&#x2F;  申请方法  添加本站后，在本页留言，格式如下  123456&#96;&#96;&#96;yml- name: #您的名字  url: #您的网址  desc: #简短描述  image: #一张图片&#96;&#96;&#96;  小伙伴们">
-<meta property="og:type" content="website">
-<meta property="og:title" content="友情链接">
-<meta property="og:url" content="https://alexdkfighter.github.io/friend/index.html">
+    <meta name="description" content="canary爆破原理 对于Canary，虽然每次进程重启后Canary不同，但是同一个进程中的不同线程的Cannary是相同的，并且通过fork函数创建的子进程中的canary也是相同的，因为fork函数会直接拷贝父进程的内存。而且fork在canary报错之后会重新运行，不会改变canary。 所以见到fork大概率是canary爆破的问题。 fork即子线程创建函数：  在父进程中，返回新创">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn: canary爆破">
+<meta property="og:url" content="https://alexdkfighter.github.io/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/index.html">
 <meta property="og:site_name" content="Alex">
-<meta property="og:description" content="本站信息 网址: https:&#x2F;&#x2F;alexdkfighter.github.io&#x2F;  申请方法  添加本站后，在本页留言，格式如下  123456&#96;&#96;&#96;yml- name: #您的名字  url: #您的网址  desc: #简短描述  image: #一张图片&#96;&#96;&#96;  小伙伴们">
+<meta property="og:description" content="canary爆破原理 对于Canary，虽然每次进程重启后Canary不同，但是同一个进程中的不同线程的Cannary是相同的，并且通过fork函数创建的子进程中的canary也是相同的，因为fork函数会直接拷贝父进程的内存。而且fork在canary报错之后会重新运行，不会改变canary。 所以见到fork大概率是canary爆破的问题。 fork即子线程创建函数：  在父进程中，返回新创">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://alexdkfighter.github.io/images/banner.webp">
-<meta property="article:published_time" content="2024-12-17T04:16:29.446Z">
-<meta property="article:modified_time" content="2024-12-17T04:16:29.446Z">
+<meta property="og:image" content="https://i.postimg.cc/yx5ZVXj8/2024-12-27-110419.png">
+<meta property="article:published_time" content="2024-12-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-27T03:53:09.015Z">
 <meta property="article:author" content="AlexD">
+<meta property="article:tag" content="pwn基础">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://alexdkfighter.github.io/images/banner.webp">
+<meta name="twitter:image" content="https://i.postimg.cc/yx5ZVXj8/2024-12-27-110419.png">
   
   
     <link rel="alternate" href="/atom.xml" title="Alex" type="application/atom+xml">
@@ -171,9 +172,7 @@
 </div>
 <header id="header">
   
-    
-      <img fetchpriority="high" src="/images/banner.webp" alt="友情链接">
-    
+    <img fetchpriority="high" src="https://i.postimg.cc/x8HX2vHQ/uwu-arch-linux-5k-wd-3820x2388.jpg" alt="pwn: canary爆破">
   
   <div id="header-outer">
     <div id="header-title">
@@ -181,7 +180,7 @@
         
         
           <a href="/" id="logo">
-            <h1 data-aos="slide-up">友情链接</h1>
+            <h1 data-aos="slide-up">pwn: canary爆破</h1>
           </a>
         
       
@@ -197,17 +196,21 @@
 
         <div id="content">
           
-          <section id="main"><article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+          <section id="main"><article id="post-pwn/canary爆破" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner" data-aos="fade-up">
     <div class="article-meta">
       <div class="article-date">
-  <a href="/friend/index.html" class="article-date-link" data-aos="zoom-in">
-    <time datetime="2024-12-17T04:16:29.446Z" itemprop="datePublished">2024-12-17</time>
-    <time style="display: none;" id="post-update-time">2024-12-17</time>
+  <a href="/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/" class="article-date-link" data-aos="zoom-in">
+    <time datetime="2024-12-26T16:00:00.000Z" itemprop="datePublished">2024-12-27</time>
+    <time style="display: none;" id="post-update-time">2024-12-27</time>
   </a>
 </div>
 
       
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/pwn%E5%88%9D%E7%BA%A7/" data-aos="zoom-in">pwn初级</a>
+  </div>
+
 
     </div>
     <div class="hr-line"></div>
@@ -216,75 +219,26 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
       
-        <h2 id="本站信息"><a class="markdownIt-Anchor" href="#本站信息"></a> 本站信息</h2>
-<p>网址: <a href="https://alexdkfighter.github.io/">https://alexdkfighter.github.io/</a></p>
-<h2 id="申请方法"><a class="markdownIt-Anchor" href="#申请方法"></a> 申请方法</h2>
+        <h2 id="canary爆破原理"><a class="markdownIt-Anchor" href="#canary爆破原理"></a> canary爆破原理</h2>
+<p>对于Canary，虽然每次进程重启后Canary不同，但是同一个进程中的不同线程的Cannary是相同的，并且通过fork函数创建的子进程中的canary也是相同的，因为fork函数会直接拷贝父进程的内存。而且fork在canary报错之后会重新运行，不会改变canary。<br />
+所以见到fork大概率是canary爆破的问题。<br />
+fork即子线程创建函数：</p>
 <ul>
-<li>添加本站后，在本页留言，格式如下</li>
+<li>在父进程中，返回新创建的子进程的PID。</li>
+<li>在子进程中，返回0。</li>
+<li>如果发生错误，<code>fork</code> 返回-1，父进程会获得一个负值。</li>
 </ul>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">```yml</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="comment">#您的名字</span></span><br><span class="line">  <span class="attr">url:</span> <span class="comment">#您的网址</span></span><br><span class="line">  <span class="attr">desc:</span> <span class="comment">#简短描述</span></span><br><span class="line">  <span class="attr">image:</span> <span class="comment">#一张图片</span></span><br><span class="line"><span class="string">```</span></span><br></pre></td></tr></table></figure>
-<h2 id="小伙伴们"><a class="markdownIt-Anchor" href="#小伙伴们"></a> 小伙伴们</h2>
-<div class="friend-wrap" data-aos="zoom-in"><div class="friend-item-wrap">
-    <a href="https://alexdkfighter.github.io/" rel="noopener external nofollow noreferrer" target="_blank"></a>
-    <div class="friend-icon-wrap">
-      <div class="friend-icon">
-          <img data-src="https://alexdkfighter.github.io/avatar/avatar.webp" data-sizes="auto" alt="AlexD" class="lazyload">
-      </div>
-    </div>
-    <div class="friend-info-wrap">
-      <div class="friend-name">
-          AlexD 
-      </div>
-      <div class="friend-desc">
-        本站, 华南师范pwn小登
-      </div>
-    </div>
-  </div><div class="friend-item-wrap">
-    <a href="https://qanux.github.io/" rel="noopener external nofollow noreferrer" target="_blank"></a>
-    <div class="friend-icon-wrap">
-      <div class="friend-icon">
-          <img data-src="https://qanux.github.io/images/favicon.jpg" data-sizes="auto" alt="Qanux" class="lazyload">
-      </div>
-    </div>
-    <div class="friend-info-wrap">
-      <div class="friend-name">
-          Qanux 
-      </div>
-      <div class="friend-desc">
-        圈圈师傅我的神!!!
-      </div>
-    </div>
-  </div><div class="friend-item-wrap">
-    <a href="https://icemarshal.github.io/" rel="noopener external nofollow noreferrer" target="_blank"></a>
-    <div class="friend-icon-wrap">
-      <div class="friend-icon">
-          <img data-src="https://pic4.zhimg.com/80/v2-74544898e43b6cb3689956b0759b5a53_720w.jpeg" data-sizes="auto" alt="Ice Marshal" class="lazyload">
-      </div>
-    </div>
-    <div class="friend-info-wrap">
-      <div class="friend-name">
-          Ice Marshal 
-      </div>
-      <div class="friend-desc">
-        大一小壁灯
-      </div>
-    </div>
-  </div><div class="friend-item-wrap">
-    <a href="https://saofeia.github.io/" rel="noopener external nofollow noreferrer" target="_blank"></a>
-    <div class="friend-icon-wrap">
-      <div class="friend-icon">
-          <img data-src="https://saofeia.github.io/images/touxiang.jpg" data-sizes="auto" alt="saofei1a" class="lazyload">
-      </div>
-    </div>
-    <div class="friend-info-wrap">
-      <div class="friend-name">
-          saofei1a 
-      </div>
-      <div class="friend-desc">
-        抽象派web师傅
-      </div>
-    </div>
-  </div></div>
+<h2 id="题目示例"><a class="markdownIt-Anchor" href="#题目示例"></a> 题目示例</h2>
+<p>我们用NewStar的题目来做示例。<a target="_blank" rel="noopener" href="https://github.com/alexdkfighter/CTFblog-challenge/tree/main/canary">ezcanary</a><br />
+<a target="_blank" rel="noopener" href="https://postimg.cc/V0q6gt2x"><img src="https://i.postimg.cc/yx5ZVXj8/2024-12-27-110419.png" alt="2024-12-27-110419.png" /></a><br />
+可以发现源代码中有fork，且有canary。<br />
+我们需要用while来反复使用fork来爆破canary。<br />
+所以我们用for循环，在子线程中修改canary的一个字节的值，如果修改错误，会报错，但不会影响父线程。而且有while，所以可以无限制的尝试。</p>
+<p>在脚本中正是用aaa函数爆破一个字节的canary。<br />
+用bbb完成循环，爆破canary。<br />
+而getshell是已有的后门函数。<br />
+p64(0)则还是为了添加一个0x8，移动到ret。<br />
+当爆破完了之后，输入cat flag跳出循环。</p>
 
       
     </div>
@@ -292,8 +246,8 @@
       
       
       
-        <a data-aos="zoom-in" href="/friend/index.html#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/friend/" itemprop="commentCount"></span>
+        <a data-aos="zoom-in" href="/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/" itemprop="commentCount"></span>
           留言
         </a>
       
@@ -302,10 +256,43 @@
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/pwn%E5%9F%BA%E7%A1%80/" rel="tag">pwn基础</a></li></ul>
+
 
     </footer>
   </div>
   
+  <nav id="article-nav" data-aos="fade-up">
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img data-src="https://i.postimg.cc/nzNXgRXT/i-am-at-your-command-j2-3840x2160.jpg" data-sizes="auto" alt="pwn: 沙箱入门" class="lazyload">
+        
+        <a href="/2024/12/27/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            pwn: 沙箱入门
+          
+        </h3>
+      </div>
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        <img data-src="https://i.postimg.cc/gc6X8W77/2024-ubuntu-23-mantic-minotaur-xw-3820x2388.jpg" data-sizes="auto" alt="pwn: ret2csu" class="lazyload">
+      
+      <a href="/2024/12/22/pwn/ret2csu/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          pwn: ret2csu
+        
+      </h3>
+    </div>
+    
+  </nav>
+
 
 </article>
 
@@ -319,10 +306,19 @@
 </section>
           
             <aside id="sidebar">
-  <div class="sidebar-wrapper ">
+  <div class="sidebar-wrapper wrap-sticky">
     <div class="sidebar-wrap" data-aos="fade-up">
       
-        <div class="sidebar-author">
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#canary%E7%88%86%E7%A0%B4%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text"> canary爆破原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text"> 题目示例</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="AlexD" class="lazyload">
   <div class="sidebar-author-name">AlexD</div>
   <div class="sidebar-description">No way out. Just fight.</div>
@@ -385,8 +381,13 @@
     
   
 </div>
-
+</div>
       
+      
+        <div class="sidebar-btn-wrapper" style="position:static">
+          <div class="sidebar-toc-btn current"></div>
+          <div class="sidebar-common-btn"></div>
+        </div>
       
     </div>
   </div>
@@ -448,7 +449,16 @@
       <nav id="mobile-nav">
   <div class="sidebar-wrap">
     
-      <div class="sidebar-author">
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#canary%E7%88%86%E7%A0%B4%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text"> canary爆破原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text"> 题目示例</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="AlexD" class="lazyload">
   <div class="sidebar-author-name">AlexD</div>
   <div class="sidebar-description">No way out. Just fight.</div>
@@ -511,9 +521,14 @@
     
   
 </div>
-
+</div>
     
   </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
   
 </nav>
 
