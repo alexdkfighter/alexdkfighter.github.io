@@ -8,7 +8,7 @@
       <link href="/2024/12/27/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/"/>
       <url>/2024/12/27/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/</url>
       
-        <content type="html"><![CDATA[<p>沙箱，用来控制shellcode的。在函数中会有sandbox函数。<br />我们用Newstar的一个题为例子讲解。</p><h2 id="如何查看沙箱"><a class="markdownIt-Anchor" href="#如何查看沙箱"></a> 如何查看沙箱</h2><h3 id="检测工具seccomp-tools"><a class="markdownIt-Anchor" href="#检测工具seccomp-tools"></a> 检测工具seccomp-tools</h3><h4 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装：</h4><p>sudo apt install gcc ruby-dev<br />sudo gem install seccomp-tools</p><h4 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用：</h4><p>seccomp-tools dump ./pwn<br /><a href="https://postimg.cc/7JY5dvB9"><img src="https://i.postimg.cc/KjttKxB6/2024-12-25-164132.png" alt="2024-12-25-164132.png" /></a><br />这样可以看到我们被允许使用的函数有3个：sendfile、execve、exeveat</p>]]></content>
+        <content type="html"><![CDATA[<p>沙箱，用来控制shellcode的。在函数中会有sandbox函数。<br />我们用Newstar的一个题为例子讲解。</p><h2 id="如何查看沙箱"><a class="markdownIt-Anchor" href="#如何查看沙箱"></a> 如何查看沙箱</h2><h3 id="检测工具seccomp-tools"><a class="markdownIt-Anchor" href="#检测工具seccomp-tools"></a> 检测工具seccomp-tools</h3><h4 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装：</h4><p>sudo apt install gcc ruby-dev<br />sudo gem install seccomp-tools</p><h4 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用：</h4><p>seccomp-tools dump ./pwn<br /><a href="https://postimg.cc/7JY5dvB9"><img src="https://i.postimg.cc/KjttKxB6/2024-12-25-164132.png" alt="2024-12-25-164132.png" /></a><br />这样可以看到我们被禁止使用的函数有3个：sendfile、execve、exeveat</p>]]></content>
       
       
       <categories>
