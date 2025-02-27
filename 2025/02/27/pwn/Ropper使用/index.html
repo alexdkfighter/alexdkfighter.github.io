@@ -12,7 +12,7 @@
   <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_tq6stt6tcg';window.REIMU_CONFIG.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":false,"count":80,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};window.REIMU_CONFIG.code_block = {"expand":true};</script>
   
   <title>
-    sw: git入门使用 |
+    pwn: Ropper使用 |
     
     Alex
   </title>
@@ -27,19 +27,23 @@
 
   
   
-    <meta name="description" content="基础部分 其实在之前也有给过推荐的一个视频 在Github上传你第一个项目【windows系统】(bilibili) 跟着这个基本就可以正常使用git的部分功能了，下面是常用的命令  项目初始化:  12345#http克隆，也可以用github的ssh替代这里的网址git clone https:&#x2F;&#x2F;example.com#如果是自己的项目，自己建的git init  添加远程仓库: 将Git">
+    <meta name="description" content="Ropper Ropper是ROPgadget在大程序下的替代，有更快的检索速度，pwn手基本上都会使用  比如在某些题目中，我们可以获得libc基址，但是程序中缺失scu等，缺少rop链的条件。迫于无奈，我们只能在libc中寻找以构造rop链，这个时候我们使用Ropper会有相当好的效果   Ropper的命令  安装： 我使用的是kali的wsl安装方式相当简单 1apt install r">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sw: git入门使用">
-<meta property="og:url" content="https://alexdkfighter.github.io/2024/12/18/sw/github%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="pwn: Ropper使用">
+<meta property="og:url" content="https://alexdkfighter.github.io/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Alex">
-<meta property="og:description" content="基础部分 其实在之前也有给过推荐的一个视频 在Github上传你第一个项目【windows系统】(bilibili) 跟着这个基本就可以正常使用git的部分功能了，下面是常用的命令  项目初始化:  12345#http克隆，也可以用github的ssh替代这里的网址git clone https:&#x2F;&#x2F;example.com#如果是自己的项目，自己建的git init  添加远程仓库: 将Git">
+<meta property="og:description" content="Ropper Ropper是ROPgadget在大程序下的替代，有更快的检索速度，pwn手基本上都会使用  比如在某些题目中，我们可以获得libc基址，但是程序中缺失scu等，缺少rop链的条件。迫于无奈，我们只能在libc中寻找以构造rop链，这个时候我们使用Ropper会有相当好的效果   Ropper的命令  安装： 我使用的是kali的wsl安装方式相当简单 1apt install r">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-12-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-18T08:16:44.452Z">
+<meta property="og:image" content="https://i.postimg.cc/pdbMZZKV/2025-02-27-130227.png">
+<meta property="og:image" content="https://i.postimg.cc/28DH2KKK/2025-02-27-130810.png">
+<meta property="og:image" content="https://i.postimg.cc/R0BVF9sT/2025-02-27-131331.png">
+<meta property="article:published_time" content="2025-02-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-27T05:40:46.799Z">
 <meta property="article:author" content="AlexD">
 <meta property="article:tag" content="新手入门">
-<meta property="article:tag" content="github">
+<meta property="article:tag" content="pwn基础">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.postimg.cc/pdbMZZKV/2025-02-27-130227.png">
   
   
     <link rel="alternate" href="/atom.xml" title="Alex" type="application/atom+xml">
@@ -171,7 +175,7 @@
 </div>
 <header id="header">
   
-    <img fetchpriority="high" src="https://i.postimg.cc/sfhYMZnp/small-kitten-ba-3820x2388.jpg" alt="sw: git入门使用">
+    <img fetchpriority="high" src="https://i.postimg.cc/x8HX2vHQ/uwu-arch-linux-5k-wd-3820x2388.jpg" alt="pwn: Ropper使用">
   
   <div id="header-outer">
     <div id="header-title">
@@ -179,7 +183,7 @@
         
         
           <a href="/" id="logo">
-            <h1 data-aos="slide-up">sw: git入门使用</h1>
+            <h1 data-aos="slide-up">pwn: Ropper使用</h1>
           </a>
         
       
@@ -195,19 +199,19 @@
 
         <div id="content">
           
-          <section id="main"><article id="post-sw/github使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+          <section id="main"><article id="post-pwn/Ropper使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner" data-aos="fade-up">
     <div class="article-meta">
       <div class="article-date">
-  <a href="/2024/12/18/sw/github%E4%BD%BF%E7%94%A8/" class="article-date-link" data-aos="zoom-in">
-    <time datetime="2024-12-17T16:00:00.000Z" itemprop="datePublished">2024-12-18</time>
-    <time style="display: none;" id="post-update-time">2024-12-18</time>
+  <a href="/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/" class="article-date-link" data-aos="zoom-in">
+    <time datetime="2025-02-26T16:00:00.000Z" itemprop="datePublished">2025-02-27</time>
+    <time style="display: none;" id="post-update-time">2025-02-27</time>
   </a>
 </div>
 
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%99%E7%A8%8B/" data-aos="zoom-in">教程</a>
+    <a class="article-category-link" href="/categories/pwn%E5%88%9D%E7%BA%A7/" data-aos="zoom-in">pwn初级</a>
   </div>
 
 
@@ -218,54 +222,38 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
       
-        <h2 id="基础部分"><a class="markdownIt-Anchor" href="#基础部分"></a> 基础部分</h2>
-<p>其实在之前也有给过推荐的一个视频<br />
-<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1LT411D76z/?spm_id_from=333.337.search-card.all.click&amp;vd_source=eb45ed6f88c7bf4b9107819555b699ee">在Github上传你第一个项目【windows系统】(bilibili)</a><br />
-跟着这个基本就可以正常使用git的部分功能了，下面是常用的命令</p>
-<ul>
-<li><strong>项目初始化:</strong></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#http克隆，也可以用github的ssh替代这里的网址</span></span><br><span class="line">git <span class="built_in">clone</span> https://example.com</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果是自己的项目，自己建的</span></span><br><span class="line">git init</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>添加远程仓库</strong>:<br />
-将GitHub仓库添加为远程仓库。假设你仓库的URL是<code>https://github.com/username/repository.git</code>： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/username/repository.git</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>如果你是克隆自己的仓库下来的，这部分可以跳过</p>
-<ul>
-<li><strong>添加文件并提交</strong>:<br />
-将所有文件添加到git暂存区并提交: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;Initial commit&quot;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><strong>推送到GitHub</strong>：<br />
-将本地仓库推送到GitHub的主分支 (通常是<code>main</code>): <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#新建分支</span></span><br><span class="line">git checkout -b new_branch</span><br><span class="line"><span class="comment">#查看当前所在分支</span></span><br><span class="line">git branch</span><br><span class="line"><span class="comment">#移动到一致的分支</span></span><br><span class="line">git checkout main</span><br><span class="line"><span class="comment">#合并分支(需要先移动到main分支)</span></span><br><span class="line">git checkout main</span><br><span class="line">git merge new_branch</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看日志</span></span><br><span class="line">git <span class="built_in">log</span> --oneline</span><br><span class="line"><span class="comment">#删除分支</span></span><br><span class="line">git branch -d branch_name</span><br><span class="line"><span class="comment">#如果分支是未被合并过的，需要强制删除</span></span><br><span class="line">git branch -D branch_name</span><br><span class="line"></span><br><span class="line"><span class="comment">#回溯到特定的提交（hash值在日志的左边会显示）</span></span><br><span class="line">git checkout commit_hash</span><br><span class="line"><span class="comment">#重置分支到特定提交</span></span><br><span class="line"><span class="comment">#1.软重置（保留更改）：</span></span><br><span class="line">    git reset --soft commit_hash</span><br><span class="line"><span class="comment">#2.混合重置（保留工作目录更改）：</span></span><br><span class="line">    git reset --mixed commit_hash</span><br><span class="line"><span class="comment">#3.硬重置（丢弃所有更改）：</span></span><br><span class="line">    git reset --hard commit_hash</span><br></pre></td></tr></table></figure>
-<h2 id="commit的要求"><a class="markdownIt-Anchor" href="#commit的要求"></a> commit的要求</h2>
-<p>commit有常见规范，不同的项目组可能不一样，下面给出常用的<br />
-这些需要在上面 <code>Initial commit</code> 的部分加前缀 (type:)</p>
-<ul>
-<li>feat: 新功能</li>
-<li>fix/to: 修复bug</li>
-<li>docs: 文档</li>
-<li>style: 格式</li>
-<li>refactor: 重构</li>
-<li>perf: 优化相关，比如提升性能、体验</li>
-<li>test: 添加测试</li>
-<li>chore: 构造过程或辅助工具的变动</li>
-<li>revert: 回滚到上一版本</li>
-<li>merge: 代码合并</li>
-<li>sync: 同步主线或分支的bug</li>
-</ul>
-<h2 id="注意事项"><a class="markdownIt-Anchor" href="#注意事项"></a> 注意事项</h2>
-<p>在管理版本的过程中，要学会使用分支。<br />
-一是可以多人合作，方便管理与缩小每个人管理的项目跟上传的体积。<br />
-二是可以避免main分支的日志过长，难以回溯</p>
-<p>如果你已经配置好了git，你完全可以使用SourceTree<br />
-更方便，不用专门记命令，但是命令行的还是记一下好一点<br />
-不推TortoiseGit是因为对于win11用户来说，右键菜单不太友好<br />
-(本人就是win11的呐)</p>
+        <h2 id="ropper"><a class="markdownIt-Anchor" href="#ropper"></a> Ropper</h2>
+<p>Ropper是ROPgadget在大程序下的替代，有更快的检索速度，pwn手基本上都会使用</p>
+<blockquote>
+<p>比如在某些题目中，我们可以获得libc基址，但是程序中缺失scu等，缺少rop链的条件。迫于无奈，我们只能在libc中寻找以构造rop链，这个时候我们使用Ropper会有相当好的效果</p>
+</blockquote>
+<h2 id="ropper的命令"><a class="markdownIt-Anchor" href="#ropper的命令"></a> Ropper的命令</h2>
+<h3 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装：</h3>
+<p>我使用的是kali的wsl安装方式相当简单</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install ropper</span><br></pre></td></tr></table></figure>
+<h3 id="运行"><a class="markdownIt-Anchor" href="#运行"></a> 运行：</h3>
+<p>直接运行ropper进入Ropper环境<br />
+执行file命令以载入libc文件<br />
+<a target="_blank" rel="noopener" href="https://postimg.cc/RWRYCwP2"><img src="https://i.postimg.cc/pdbMZZKV/2025-02-27-130227.png" alt="2025-02-27-130227.png" /></a><br />
+在这里我使用的是本机的libc做演示</p>
+<h3 id="命令"><a class="markdownIt-Anchor" href="#命令"></a> 命令：</h3>
+<h5 id="gadgets命令会列出所有的gadgets实在是太多了所以一般不会这么用"><a class="markdownIt-Anchor" href="#gadgets命令会列出所有的gadgets实在是太多了所以一般不会这么用"></a> gadgets命令会列出所有的gadgets，实在是太多了，所以一般不会这么用。</h5>
+<h5 id="search可以更加精准的查找相关的指令"><a class="markdownIt-Anchor" href="#search可以更加精准的查找相关的指令"></a> search可以更加精准的查找相关的指令</h5>
+<p><a target="_blank" rel="noopener" href="https://postimg.cc/rzfCpQc1"><img src="https://i.postimg.cc/28DH2KKK/2025-02-27-130810.png" alt="2025-02-27-130810.png" /></a><br />
+当然也可这样使用<br />
+<a target="_blank" rel="noopener" href="https://postimg.cc/tsBHv0H1"><img src="https://i.postimg.cc/R0BVF9sT/2025-02-27-131331.png" alt="2025-02-27-131331.png" /></a></p>
+<h5 id="semantic命令实现一定功能的片段"><a class="markdownIt-Anchor" href="#semantic命令实现一定功能的片段"></a> semantic命令（实现一定功能的片段）</h5>
+<p>需要先安装依赖的库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip3 install z3</span><br><span class="line">pip3 install archinfo</span><br><span class="line">pip3 install pyvex</span><br></pre></td></tr></table></figure>
+<p>当然对于使用apt的linux我们使用下面的代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt install python3-z3</span><br><span class="line">pip3 install --user --break-system-packages archinfo</span><br><span class="line">pip3 install --user --break-system-packages pyvex</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">下面的两个是直接强制全局安装</span></span><br></pre></td></tr></table></figure>
+<p>支持的约束命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">reg == reg     -  assign register to another</span><br><span class="line">reg == number  -  assign number to register</span><br><span class="line">reg == [reg]   -  assign memory to register</span><br><span class="line">reg += number/reg/[reg]</span><br><span class="line">reg -= number/reg/[reg]</span><br><span class="line">reg *= number/reg/[reg]</span><br><span class="line">reg /= number/reg/[reg]</span><br></pre></td></tr></table></figure>
+<p>能跑跑小程序，大程序貌似不太跑的出来。<br />
+没有找到合适的效果，这里不做演示<br />
+实际上可以找到比如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">semantic rax==0</span><br></pre></td></tr></table></figure>
+<p>会给出xor rax rax; ret;的地址这种。</p>
 
       
     </div>
@@ -273,8 +261,8 @@
       
       
       
-        <a data-aos="zoom-in" href="/2024/12/18/sw/github%E4%BD%BF%E7%94%A8/#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/2024/12/18/sw/github%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
+        <a data-aos="zoom-in" href="/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
           留言
         </a>
       
@@ -283,7 +271,7 @@
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/" rel="tag">新手入门</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/pwn%E5%9F%BA%E7%A1%80/" rel="tag">pwn基础</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/" rel="tag">新手入门</a></li></ul>
 
 
     </footer>
@@ -291,29 +279,16 @@
   
   <nav id="article-nav" data-aos="fade-up">
     
-      <div class="article-nav-link-wrap article-nav-link-left">
-        
-          <img data-src="https://i.postimg.cc/0jDDFL6t/linux-arch-light-4k-96-3820x2388.jpg" data-sizes="auto" alt="ctf: 几个推荐的链接" class="lazyload">
-        
-        <a href="/2024/12/18/%E5%87%A0%E4%B8%AA%E6%8E%A8%E8%8D%90%E7%9A%84%E9%93%BE%E6%8E%A5/"></a>
-        <div class="article-nav-caption">前一篇</div>
-        <h3 class="article-nav-title">
-          
-            ctf: 几个推荐的链接
-          
-        </h3>
-      </div>
-    
     
     <div class="article-nav-link-wrap article-nav-link-right">
       
-        <img data-src="https://alexdkfighter.github.io/covers/bg1.webp" data-sizes="auto" alt="Alex介绍" class="lazyload">
+        <img data-src="https://i.postimg.cc/nzNXgRXT/i-am-at-your-command-j2-3840x2160.jpg" data-sizes="auto" alt="pwn: 沙箱入门" class="lazyload">
       
-      <a href="/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/"></a>
+      <a href="/2025/01/09/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/"></a>
       <div class="article-nav-caption">后一篇</div>
       <h3 class="article-nav-title">
         
-          Alex介绍
+          pwn: 沙箱入门
         
       </h3>
     </div>
@@ -340,7 +315,7 @@
   <h3 class="toc-title">文章目录</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86"><span class="toc-number">1.</span> <span class="toc-text"> 基础部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">2.</span> <span class="toc-text"> 其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#commit%E7%9A%84%E8%A6%81%E6%B1%82"><span class="toc-number">3.</span> <span class="toc-text"> commit的要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text"> 注意事项</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ropper"><span class="toc-number">1.</span> <span class="toc-text"> Ropper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ropper%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text"> Ropper的命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text"> 安装：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-number">2.2.</span> <span class="toc-text"> 运行：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text"> 命令：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#gadgets%E5%91%BD%E4%BB%A4%E4%BC%9A%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E7%9A%84gadgets%E5%AE%9E%E5%9C%A8%E6%98%AF%E5%A4%AA%E5%A4%9A%E4%BA%86%E6%89%80%E4%BB%A5%E4%B8%80%E8%88%AC%E4%B8%8D%E4%BC%9A%E8%BF%99%E4%B9%88%E7%94%A8"><span class="toc-number">2.3.0.1.</span> <span class="toc-text"> gadgets命令会列出所有的gadgets，实在是太多了，所以一般不会这么用。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#search%E5%8F%AF%E4%BB%A5%E6%9B%B4%E5%8A%A0%E7%B2%BE%E5%87%86%E7%9A%84%E6%9F%A5%E6%89%BE%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="toc-number">2.3.0.2.</span> <span class="toc-text"> search可以更加精准的查找相关的指令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#semantic%E5%91%BD%E4%BB%A4%E5%AE%9E%E7%8E%B0%E4%B8%80%E5%AE%9A%E5%8A%9F%E8%83%BD%E7%9A%84%E7%89%87%E6%AE%B5"><span class="toc-number">2.3.0.3.</span> <span class="toc-text"> semantic命令（实现一定功能的片段）</span></a></li></ol></li></ol></li></ol></li></ol>
       
   </div>
 </div>
@@ -480,7 +455,7 @@
   <h3 class="toc-title">文章目录</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86"><span class="toc-number">1.</span> <span class="toc-text"> 基础部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">2.</span> <span class="toc-text"> 其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#commit%E7%9A%84%E8%A6%81%E6%B1%82"><span class="toc-number">3.</span> <span class="toc-text"> commit的要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text"> 注意事项</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ropper"><span class="toc-number">1.</span> <span class="toc-text"> Ropper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ropper%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text"> Ropper的命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text"> 安装：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-number">2.2.</span> <span class="toc-text"> 运行：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text"> 命令：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#gadgets%E5%91%BD%E4%BB%A4%E4%BC%9A%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E7%9A%84gadgets%E5%AE%9E%E5%9C%A8%E6%98%AF%E5%A4%AA%E5%A4%9A%E4%BA%86%E6%89%80%E4%BB%A5%E4%B8%80%E8%88%AC%E4%B8%8D%E4%BC%9A%E8%BF%99%E4%B9%88%E7%94%A8"><span class="toc-number">2.3.0.1.</span> <span class="toc-text"> gadgets命令会列出所有的gadgets，实在是太多了，所以一般不会这么用。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#search%E5%8F%AF%E4%BB%A5%E6%9B%B4%E5%8A%A0%E7%B2%BE%E5%87%86%E7%9A%84%E6%9F%A5%E6%89%BE%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="toc-number">2.3.0.2.</span> <span class="toc-text"> search可以更加精准的查找相关的指令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#semantic%E5%91%BD%E4%BB%A4%E5%AE%9E%E7%8E%B0%E4%B8%80%E5%AE%9A%E5%8A%9F%E8%83%BD%E7%9A%84%E7%89%87%E6%AE%B5"><span class="toc-number">2.3.0.3.</span> <span class="toc-text"> semantic命令（实现一定功能的片段）</span></a></li></ol></li></ol></li></ol></li></ol>
       
   </div>
 </div>

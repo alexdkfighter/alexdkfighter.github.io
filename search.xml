@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>pwn: Ropper使用</title>
+      <link href="/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/"/>
+      <url>/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<h2 id="ropper"><a class="markdownIt-Anchor" href="#ropper"></a> Ropper</h2><p>Ropper是ROPgadget在大程序下的替代，有更快的检索速度，pwn手基本上都会使用</p><blockquote><p>比如在某些题目中，我们可以获得libc基址，但是程序中缺失scu等，缺少rop链的条件。迫于无奈，我们只能在libc中寻找以构造rop链，这个时候我们使用Ropper会有相当好的效果</p></blockquote><h2 id="ropper的命令"><a class="markdownIt-Anchor" href="#ropper的命令"></a> Ropper的命令</h2><h3 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装：</h3><p>我使用的是kali的wsl安装方式相当简单</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install ropper</span><br></pre></td></tr></table></figure><h3 id="运行"><a class="markdownIt-Anchor" href="#运行"></a> 运行：</h3><p>直接运行ropper进入Ropper环境<br />执行file命令以载入libc文件<br /><a href="https://postimg.cc/RWRYCwP2"><img src="https://i.postimg.cc/pdbMZZKV/2025-02-27-130227.png" alt="2025-02-27-130227.png" /></a><br />在这里我使用的是本机的libc做演示</p><h3 id="命令"><a class="markdownIt-Anchor" href="#命令"></a> 命令：</h3><h5 id="gadgets命令会列出所有的gadgets实在是太多了所以一般不会这么用"><a class="markdownIt-Anchor" href="#gadgets命令会列出所有的gadgets实在是太多了所以一般不会这么用"></a> gadgets命令会列出所有的gadgets，实在是太多了，所以一般不会这么用。</h5><h5 id="search可以更加精准的查找相关的指令"><a class="markdownIt-Anchor" href="#search可以更加精准的查找相关的指令"></a> search可以更加精准的查找相关的指令</h5><p><a href="https://postimg.cc/rzfCpQc1"><img src="https://i.postimg.cc/28DH2KKK/2025-02-27-130810.png" alt="2025-02-27-130810.png" /></a><br />当然也可这样使用<br /><a href="https://postimg.cc/tsBHv0H1"><img src="https://i.postimg.cc/R0BVF9sT/2025-02-27-131331.png" alt="2025-02-27-131331.png" /></a></p><h5 id="semantic命令实现一定功能的片段"><a class="markdownIt-Anchor" href="#semantic命令实现一定功能的片段"></a> semantic命令（实现一定功能的片段）</h5><p>需要先安装依赖的库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip3 install z3</span><br><span class="line">pip3 install archinfo</span><br><span class="line">pip3 install pyvex</span><br></pre></td></tr></table></figure><p>当然对于使用apt的linux我们使用下面的代码</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt install python3-z3</span><br><span class="line">pip3 install --user --break-system-packages archinfo</span><br><span class="line">pip3 install --user --break-system-packages pyvex</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">下面的两个是直接强制全局安装</span></span><br></pre></td></tr></table></figure><p>支持的约束命令</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">reg == reg     -  assign register to another</span><br><span class="line">reg == number  -  assign number to register</span><br><span class="line">reg == [reg]   -  assign memory to register</span><br><span class="line">reg += number/reg/[reg]</span><br><span class="line">reg -= number/reg/[reg]</span><br><span class="line">reg *= number/reg/[reg]</span><br><span class="line">reg /= number/reg/[reg]</span><br></pre></td></tr></table></figure><p>能跑跑小程序，大程序貌似不太跑的出来。<br />没有找到合适的效果，这里不做演示<br />实际上可以找到比如</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">semantic rax==0</span><br></pre></td></tr></table></figure><p>会给出xor rax rax; ret;的地址这种。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> pwn初级 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 新手入门 </tag>
+            
+            <tag> pwn基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>pwn: 沙箱入门</title>
       <link href="/2025/01/09/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/"/>
       <url>/2025/01/09/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/</url>

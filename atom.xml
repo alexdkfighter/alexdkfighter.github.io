@@ -6,7 +6,7 @@
   <link href="https://alexdkfighter.github.io/atom.xml" rel="self"/>
   
   <link href="https://alexdkfighter.github.io/"/>
-  <updated>2025-01-09T07:57:39.061Z</updated>
+  <updated>2025-02-27T05:40:46.799Z</updated>
   <id>https://alexdkfighter.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pwn: Ropper使用</title>
+    <link href="https://alexdkfighter.github.io/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/"/>
+    <id>https://alexdkfighter.github.io/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/</id>
+    <published>2025-02-26T16:00:00.000Z</published>
+    <updated>2025-02-27T05:40:46.799Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;ropper&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#ropper&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    
+    
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
   
   <entry>
     <title>pwn: 沙箱入门</title>
