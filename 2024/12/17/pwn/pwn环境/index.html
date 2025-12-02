@@ -1,0 +1,771 @@
+  <!DOCTYPE html>
+  <html lang="zh-CN"  
+      data-theme-mode="auto"
+  >
+  <head>
+  <meta charset="utf-8">
+  
+  
+  
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://alexdkfighter.github.io';</script>
+  <title>
+    pwn: pwn环境 | Alex
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish%3A400%2C400italic%2C700%2C700italic%7CNoto+Serif+SC%3A400%2C400italic%2C700%2C700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish%3A400%2C400italic%2C700%2C700italic%7CNoto+Serif+SC%3A400%2C400italic%2C700%2C700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="pwn环境建造  linux系统 我们在pwn方向，linux是必须的 我们有以下两个选择  wsl (windows下的linux系统子系统) VM 虚拟机 linux系统也有选择，通常情况下可以选择Ubuntu系统(出题人基本上都是Ubuntu编译) 虽然我一直用kali 而且对于密码手而言，Arac linux 才是最优选择 (因为装sagemath更方便)   wsl 直接在微软商店搜索">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn: pwn环境">
+<meta property="og:url" content="https://alexdkfighter.github.io/2024/12/17/pwn/pwn%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="Alex">
+<meta property="og:description" content="pwn环境建造  linux系统 我们在pwn方向，linux是必须的 我们有以下两个选择  wsl (windows下的linux系统子系统) VM 虚拟机 linux系统也有选择，通常情况下可以选择Ubuntu系统(出题人基本上都是Ubuntu编译) 虽然我一直用kali 而且对于密码手而言，Arac linux 才是最优选择 (因为装sagemath更方便)   wsl 直接在微软商店搜索">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.postimg.cc/pLwwfjfK/2024-12-17-192520.png">
+<meta property="og:image" content="https://i.postimg.cc/k49LZdh4/2024-12-17-192554.png">
+<meta property="article:published_time" content="2024-12-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-02T08:11:13.833Z">
+<meta property="article:author" content="AlexD">
+<meta property="article:tag" content="pwn基础">
+<meta property="article:tag" content="新手入门">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.postimg.cc/pLwwfjfK/2024-12-17-192520.png">
+    <link rel="alternate" href="/atom.xml" title="Alex" type="application/atom+xml">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL&#x2F;toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx&#x2F;1oA&#x2F;0l8ysE" crossorigin="anonymous">
+        
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css" integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz+YI" crossorigin="anonymous">
+
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+  <body>
+      <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script>
+<div id="copy-tooltip"></div>
+<div id="heatmap-tooltip"></div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation">
+        <a class="main-nav-link-wrap" href="/">
+          <div class="main-nav-icon icon rotate">
+              &#xe62b;
+          </div>
+          <span class="main-nav-link">首页</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/archives">
+          <div class="main-nav-icon icon rotate">
+              &#xe62b;
+          </div>
+          <span class="main-nav-link">归档</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/about">
+          <div class="main-nav-icon icon rotate">
+              &#xe62b;
+          </div>
+          <span class="main-nav-link">关于</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/friend">
+          <div class="main-nav-icon icon rotate">
+              &#xe62b;
+          </div>
+          <span class="main-nav-link">友链</span>
+        </span>
+    <a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation">
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" aria-label="RSS 订阅" target="_blank"></a>
+  </nav>
+</div>
+<header id="header" aria-label="Site header">
+    <picture></picture>
+    <img  fetchpriority="high" src="https://i.postimg.cc/PxLmzLdn/kali-linux-5k-es-3840x2160.jpg" alt="pwn: pwn环境">
+  <div id="header-outer">
+    <div id="header-title">
+          <span id="logo">
+            <h1 data-aos="slide-up">pwn: pwn环境</h1>
+          </span>
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+        </h2>
+    </div>
+  </div>
+</header>
+
+        <div id="content" aria-label="Page content"  class="sidebar-right" >
+          <aside id="sidebar" aria-label="Sidebar">
+  <div class="sidebar-wrapper-container sticky">
+  <div class="sidebar-wrapper">
+    <div class="sidebar-wrap" data-aos="fade-up">
+          <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pwn%E7%8E%AF%E5%A2%83%E5%BB%BA%E9%80%A0"><span class="toc-number">1.</span> <span class="toc-text"> pwn环境建造</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.</span> <span class="toc-text"> linux系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#wsl"><span class="toc-number">1.1.1.</span> <span class="toc-text"> wsl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vm%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">1.1.2.</span> <span class="toc-text"> vm虚拟机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn%E5%BF%85%E5%A4%87linux-%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.3.</span> <span class="toc-text"> pwn必备(linux 下安装)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%A6%E5%A4%96"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 另外:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ida"><span class="toc-number">1.2.</span> <span class="toc-text"> IDA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%BD%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 好用的插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E8%84%9A%E6%9C%AC%E7%94%A8%E4%BB%80%E4%B9%88%E5%86%99"><span class="toc-number">1.3.</span> <span class="toc-text"> python脚本用什么写？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#qa"><span class="toc-number">1.4.</span> <span class="toc-text"> Q&amp;A</span></a></li></ol></li></ol>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="AlexD" class="lazyload">
+  <div class="sidebar-author-name">AlexD</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">9</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">2</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">3</div>
+  </div>
+</div>
+<div class="sidebar-social">
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/alexdkfighter itemprop="url" target="_blank" aria-label="github" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-bilibili sidebar-social-icon">
+      <a href=https://space.bilibili.com/589739890 itemprop="url" target="_blank" aria-label="bilibili" rel="noopener nofollow noreferrer"></a>
+    </div>
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+    </div>
+  </div>
+  <div class="sidebar-widget">
+  </div>
+  </div>
+</aside>
+
+          <section id="main" aria-label="Main content"><article id="post-pwn/pwn环境" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link icon-calendar" data-aos="zoom-in">
+    <time datetime="2024-12-16T16:00:00.000Z" itemprop="datePublished">2024-12-17</time>
+    <time style="display: none;" id="post-update-time">2025-12-02</time>
+  </span>
+</div>
+
+        <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%99%E7%A8%8B/" title="教程">教程</a>
+  </div>
+
+    </div>
+    
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+        <h1 id="pwn环境建造"><a class="markdownIt-Anchor" href="#pwn环境建造"></a> pwn环境建造</h1>
+<h2 id="linux系统"><a class="markdownIt-Anchor" href="#linux系统"></a> linux系统</h2>
+<p>我们在pwn方向，linux是必须的<br />
+我们有以下两个选择</p>
+<ul>
+<li>wsl (windows下的linux系统子系统)</li>
+<li>VM 虚拟机<br />
+linux系统也有选择，通常情况下可以选择Ubuntu系统(出题人基本上都是Ubuntu编译)<br />
+<s>虽然我一直用kali</s><br />
+而且对于密码手而言，Arac linux 才是最优选择 (因为装sagemath更方便)</li>
+</ul>
+<h3 id="wsl"><a class="markdownIt-Anchor" href="#wsl"></a> wsl</h3>
+<p>直接在微软商店搜索自己希望下载的linux系统, 下载即可<br />
+安装好之后就是可以使用的linux命令行 (windows10以来使用的为Terminal同一管理各种控制台)<br />
+可以去自己设计控制台的样式:<br />
+<img src="https://i.postimg.cc/pLwwfjfK/2024-12-17-192520.png" alt="kali运行界面" /><br />
+<img src="https://i.postimg.cc/k49LZdh4/2024-12-17-192554.png" alt="arch运行界面" /><br />
+右上角下箭头可以打开其他终端窗口，至于像我这样的界面怎么做，大家应该可以在设置里自己搞定吧<br />
+<s>图片上网找，反正全中文</s><br />
+tips: 记得把常用的比如我这里就是kali设置成默认启动，这样就可以在右键打开终端时直接在该文件夹下打开。<br />
+windows命令行不是一直在文件的路径窗口直接输入cmd运行的吗(bushi)<br />
+Arch… 我把sagemath装在~目录下就好了不是吗<br />
+<em>记得换源！</em><br />
+<em>记得换源！</em><br />
+<em>记得换源！</em></p>
+<h3 id="vm虚拟机"><a class="markdownIt-Anchor" href="#vm虚拟机"></a> vm虚拟机</h3>
+<p>这个没什么好说的，vm的虚拟机安装我也搞不懂，自己搞超多bug<br />
+<s>我不会呐</s><br />
+<strong>（等待大佬们补充）</strong></p>
+<h3 id="pwn必备linux-下安装"><a class="markdownIt-Anchor" href="#pwn必备linux-下安装"></a> pwn必备(linux 下安装)</h3>
+<p>pwntools (python库)<br />
+gdb (动态调试)<br />
+pwngdb (GDB插件)<br />
+ROPGadget (二进制文件查找工具)(跟着pwntools一同安装的)<br />
+patchelf (更改程序所使用的libc)<br />
+tips: 这里除了pwngdb必须从github以外, kali可以换源后apt下载<br />
+可以直接看这位师傅写的<br />
+<a target="_blank" rel="noopener" href="https://www.cnblogs.com/VxerLee/p/15424937.html">[pwn基础]PWN环境搭建</a><br />
+这里需要你换源更新, 这样才能正常使用git，如果一直无法克隆，可以选择使用ssh进行克隆，当然这样可能会很麻烦，因为你需要进行相当多的配置<br />
+<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1LT411D76z/?spm_id_from=333.337.search-card.all.click&amp;vd_source=eb45ed6f88c7bf4b9107819555b699ee">在Github上传你第一个项目【windows系统】(bilibili)</a><br />
+可以跟着这个视频来，配置完ssh的key之后基本就可以使用了</p>
+<h3 id="另外"><a class="markdownIt-Anchor" href="#另外"></a> 另外:</h3>
+<p>应该不会学这个连基本的命令行都不会的吧…<br />
+如果真的有可能需要恶补一下呢<br />
+主要是python跟git的部分优先掌握(git只要会克隆就可以了吧)</p>
+<h2 id="ida"><a class="markdownIt-Anchor" href="#ida"></a> IDA</h2>
+<p>在做题的时候当然也需要逆向我们收到的程序附件来进行分析啦<br />
+所以我们需要IDA的帮忙<br />
+以下有两个链接:<br />
+<a target="_blank" rel="noopener" href="https://www.52pojie.cn/forum.php?mod=viewthread&amp;tid=1874203">IDA Pro 8.3 绿色版（2024.2.26更新） - 吾爱破解 - 52pojie.cn</a><br />
+<a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1970020-1-1.html">IDA Pro 9.0 RC1 全平台安装包 及 patch脚本 - 吾爱破解 - 52pojie.cn</a><br />
+(好像第二个要求吾爱破解的注册吧，还挺难的，不是要钱就是要等官网开放)<br />
+re手记得去找9.0的版本的(因为可能会遇到新特性，别因为这个卡题了)<br />
+但是对于pwn手来说8.3已经足够</p>
+<h3 id="好用的插件"><a class="markdownIt-Anchor" href="#好用的插件"></a> 好用的插件</h3>
+<p>auto_re 可以将一部分简单函数的函数名进行命名，从而增加可读性，虽然也就一点点。但比你每次看到sub_123984()还要去想他是不是system的后门函数好点。<br />
+LazyIDA 提供快捷复制地址，将字节串转为列表等，可以理解为增加快捷键的<br />
+<strong>(有待大佬们补充)</strong></p>
+<h2 id="python脚本用什么写"><a class="markdownIt-Anchor" href="#python脚本用什么写"></a> python脚本用什么写？</h2>
+<p>据我个人经历看来有以下四个选择:</p>
+<ol>
+<li>VS Code (不错的编辑器，也有很多插件)</li>
+<li>Sublime Text (可以替代windows下的记事本，对代码自识别加着色) <em>这也是本人一直在用的，非常好使</em></li>
+<li>Vim (佬编辑器，linux系统自带，各种命令，linux使用的时候肯定会用上一点点，但个人不是很推荐。主要是学习成本高，如果能学会的话确实用着很顺手)</li>
+<li>记事本 (我真不说假的，你都用命令行了，用记事本不比IDLE打起来快)<br />
+这里的都是用来写脚本和小程序的，如果你要做项目请移步呐</li>
+</ol>
+<h2 id="qa"><a class="markdownIt-Anchor" href="#qa"></a> Q&amp;A</h2>
+<ul>
+<li><strong>用python什么版本比较好?</strong> 选3就可以了，虽然很多人说用python2。选2的好处在于大部分旧版的代码是2的，这时如果你要运行就需要用2，否则你需要做相当多的修改 (其实主要是print函数啦) 不过如果你的代码一直都是自己写的，那这玩意儿没啥关系 (我的代码会使用python3)</li>
+</ul>
+
+    </div>
+    <footer class="article-footer">
+        <a data-aos="zoom-in" href="/2024/12/17/pwn/pwn%E7%8E%AF%E5%A2%83/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2024/12/17/pwn/pwn%E7%8E%AF%E5%A2%83/" itemprop="commentCount"></span>
+          留言
+        </a>
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/pwn%E5%9F%BA%E7%A1%80/" rel="tag" title="pwn基础">pwn基础</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/" rel="tag" title="新手入门">新手入门</a></li></ul>
+
+    </footer>
+  </div>
+    <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+      <div class="article-nav-link-wrap left">
+          <img data-src="https://alexdkfighter.github.io/covers/bg1.webp" data-sizes="auto" alt="Alex介绍" class="lazyload">
+        <a href="/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/" aria-label="前一篇: Alex介绍" title="前一篇: Alex介绍"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+            Alex介绍
+        </h3>
+      </div>
+  </nav>
+
+</article>
+
+  <section id="comments" data-aos="fade-up">
+    <div class="comment-header">
+        
+      <h2 class="comment-title">说些什么吧！</h2>
+      <div class="comment-selector">
+        <div class="comment-selector-wrap">
+            <div class="selector-item" data-selector="valine">
+              <span>valine</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment-content">
+          <div class="comment valine-comment" data-aos="fade-up"
+            id="valine-comment">
+          </div>
+    </div>
+  </section>
+
+</section>
+        </div>
+        <footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    <div>
+      <span class="icon-copyright"></span>
+        2020-2025
+      <span class="footer-info-sep rotate"></span>
+      AlexD
+    </div>
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+      <div>
+        <span class="icon-brush"></span>
+        5.1k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        00:24
+      </div>
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+  </div>
+</footer>
+
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap">
+        <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pwn%E7%8E%AF%E5%A2%83%E5%BB%BA%E9%80%A0"><span class="toc-number">1.</span> <span class="toc-text"> pwn环境建造</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.</span> <span class="toc-text"> linux系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#wsl"><span class="toc-number">1.1.1.</span> <span class="toc-text"> wsl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vm%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">1.1.2.</span> <span class="toc-text"> vm虚拟机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn%E5%BF%85%E5%A4%87linux-%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.3.</span> <span class="toc-text"> pwn必备(linux 下安装)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%A6%E5%A4%96"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 另外:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ida"><span class="toc-number">1.2.</span> <span class="toc-text"> IDA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%BD%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 好用的插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E8%84%9A%E6%9C%AC%E7%94%A8%E4%BB%80%E4%B9%88%E5%86%99"><span class="toc-number">1.3.</span> <span class="toc-text"> python脚本用什么写？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#qa"><span class="toc-number">1.4.</span> <span class="toc-text"> Q&amp;A</span></a></li></ol></li></ol>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="AlexD" class="lazyload">
+  <div class="sidebar-author-name">AlexD</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">9</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">2</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">3</div>
+  </div>
+</div>
+<div class="sidebar-social">
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/alexdkfighter itemprop="url" target="_blank" aria-label="github" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-bilibili sidebar-social-icon">
+      <a href=https://space.bilibili.com/589739890 itemprop="url" target="_blank" aria-label="bilibili" rel="noopener nofollow noreferrer"></a>
+    </div>
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+  </div>
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+</nav>
+
+    </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js" integrity="sha384-8LyaidD9GPxQQgLJO&#x2F;WRw&#x2F;O2h3BoNq&#x2F;ApI&#x2F;ecpvM6RsrCz2qP2ppBXUKihP4V&#x2F;2d" crossorigin="anonymous"></script>
+
+  <script>
+    if (!false || !window.matchMedia('(max-width: 768px)').matches) {
+      window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["var(--red-0)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'));
+    }
+  </script>
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "AlexD",
+          title: "pwn: pwn环境",
+          url: "https://alexdkfighter.github.io/2024/12/17/pwn/pwn%E7%8E%AF%E5%A2%83/",
+          excerpt: "",
+          description: "",
+          stripContent: " pwn环境建造  linux系统 我们在pwn方向，linux是必须的 我们有以下两个选择  wsl (windows下的linux系统子系统) VM 虚拟机 linux系统也有选择，通常情况下可以选择Ubuntu系统(出题人基本上都是Ubuntu编译) 虽然我一直用kali 而且对于密码手而言，Arac linux 才是最优选择 (因为装sagemath更方便)   wsl 直接在微软商店搜索自己希望下载的linux系统, 下载即可 安装好之后就是可以使用的linux命令行 (windows",
+          date: "Tue Dec 17 2024 00:00:00 GMT+0800",
+          updated: "Tue Dec 02 2025 16:11:13 GMT+0800",
+          cover: "https://i.postimg.cc/PxLmzLdn/kali-linux-5k-es-3840x2160.jpg",
+        };
+      </script>
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+        
+<script src="/js/tabs.js" data-pjax></script>
+
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+        
+<script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+
+  var commentConfigKeys = ["valine"];
+  var commentConfig = {
+    valine: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        if (container.style.display === 'block') return; // already loaded
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js',
+          'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE+s5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn'
+        );
+        script.onload = () => {
+          var GUEST_INFO = ['nick', 'mail', 'link'];
+          var guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          var recordIP = JSON.parse('true');
+          var highlight = JSON.parse('true');
+          var visitor = JSON.parse('false');
+          var serverURLs = undefined;
+
+          if (window.Valine) {
+            new Valine({
+              el: '.valine-comment',
+              appId: "ZhQh3arEQ70OBKN0kCz2cA0Q-MdYXbMMI",
+              appKey: "U5A0PQFkvb56wV7DIPi3RTL5",
+              placeholder: "Just go go",
+              pageSize: '10',
+              avatar: 'mp',
+              lang: document.documentElement.lang || 'en',
+              recordIP: recordIP,
+              highlight: highlight,
+              visitor: visitor,
+              requiredFields: guest_info,
+              path: window.location.pathname,
+              serverURLs
+            });
+          }
+        };
+        document.head.appendChild(script);
+      }
+    },
+  }
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    // 1. 首先检查localStorage中是否有保存的评论类型
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    // 2. 如果localStorage中有值且对应的评论系统可用，就使用它
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    // 3. 如果localStorage无效，检查配置的默认评论系统
+    if (!defaultComment) {
+      var configDefault = 'valine';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    // 4. 如果前两项都无效，按指定顺序找到第一个可用的评论系统
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    // 隐藏所有评论容器
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    // 按需加载评论系统
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        // 如果已加载，只需显示对应容器
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      // 根据类型加载对应的脚本
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    // 评论组件选择器
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      // 获取要加载的评论系统类型
+      const commentType = item.getAttribute('data-selector');
+
+      // 隐藏所有评论系统
+      hideAllComments();
+
+      // 加载选中的评论系统
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      // 评论组件选择器点击事件
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          // 保存选择器状态
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          // 切换选中状态
+          changeActiveCommentItems(item);
+        });
+      }
+
+      // 检查是否需要加载默认评论系统
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script>
+
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.11.1' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+
+
+  </body>
+  </html>
