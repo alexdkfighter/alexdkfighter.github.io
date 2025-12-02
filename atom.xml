@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Alex</title>
+  <icon>https://alexdkfighter.github.io/icon.png</icon>
+  
+  <link href="https://alexdkfighter.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://alexdkfighter.github.io/"/>
+  <updated>2025-12-02T08:11:16.565Z</updated>
+  <id>https://alexdkfighter.github.io/</id>
+  
+  <author>
+    <name>AlexD</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pwn: Ropper使用</title>
+    <link href="https://alexdkfighter.github.io/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/"/>
+    <id>https://alexdkfighter.github.io/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/</id>
+    <published>2025-02-26T16:00:00.000Z</published>
+    <updated>2025-12-02T08:11:16.565Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;ropper&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#ropper&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    
+    
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pwn: 沙箱入门</title>
+    <link href="https://alexdkfighter.github.io/2025/01/09/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/"/>
+    <id>https://alexdkfighter.github.io/2025/01/09/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/</id>
+    <published>2025-01-08T16:00:00.000Z</published>
+    <updated>2025-12-02T08:11:08.785Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;沙箱，用来控制shellcode的。在函数中会有sandbox函数。&lt;br /&gt;
+我们用Newstar的一个题为例子讲解。&lt;/p&gt;
+&lt;h2 id=&quot;如何查看沙箱&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#如何查看沙箱&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pwn: canary爆破</title>
+    <link href="https://alexdkfighter.github.io/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/"/>
+    <id>https://alexdkfighter.github.io/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/</id>
+    <published>2024-12-26T16:00:00.000Z</published>
+    <updated>2025-12-02T08:11:12.222Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;canary爆破原理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#canary爆破原理&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pwn: ret2csu</title>
+    <link href="https://alexdkfighter.github.io/2024/12/22/pwn/ret2csu/"/>
+    <id>https://alexdkfighter.github.io/2024/12/22/pwn/ret2csu/</id>
+    <published>2024-12-21T16:00:00.000Z</published>
+    <updated>2025-12-02T08:11:15.361Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;也是今天刚搞懂，先写了再说&lt;/p&gt;
+&lt;h2 id=&quot;使用的原因&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#使用的原因&quot;&gt;&lt;/a&gt; 使用的原因&lt;/h2&gt;
+&lt;p&gt;其实csu指的是每个程序一定会有的函数:</summary>
+        
+      
+    
+    
+    
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pwn: 栈上的fmt</title>
+    <link href="https://alexdkfighter.github.io/2024/12/19/pwn/%E6%A0%88%E4%B8%8Afmt%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://alexdkfighter.github.io/2024/12/19/pwn/%E6%A0%88%E4%B8%8Afmt%E5%AD%A6%E4%B9%A0/</id>
+    <published>2024-12-18T16:00:00.000Z</published>
+    <updated>2025-12-02T08:11:10.657Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天在学fmt，觉得自己会忘记，写下这个&lt;/p&gt;
+&lt;h2 id=&quot;格式化字符串对应的转义&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#格式化字符串对应的转义&quot;&gt;&lt;/a&gt; 格式化字符串对应的转义&lt;/h2&gt;
+&lt;p&gt;%d</summary>
+        
+      
+    
+    
+    
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ctf: 几个推荐的链接</title>
+    <link href="https://alexdkfighter.github.io/2024/12/18/%E5%87%A0%E4%B8%AA%E6%8E%A8%E8%8D%90%E7%9A%84%E9%93%BE%E6%8E%A5/"/>
+    <id>https://alexdkfighter.github.io/2024/12/18/%E5%87%A0%E4%B8%AA%E6%8E%A8%E8%8D%90%E7%9A%84%E9%93%BE%E6%8E%A5/</id>
+    <published>2024-12-17T16:00:00.000Z</published>
+    <updated>2025-12-02T08:10:56.686Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;复现题目&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#复现题目&quot;&gt;&lt;/a&gt; 复现题目:&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://ctf.xidian.edu.cn/training&quot;&gt;NewStar&lt;/a&gt;&lt;br</summary>
+        
+      
+    
+    
+    
+    <category term="教程" scheme="https://alexdkfighter.github.io/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sw: git入门使用</title>
+    <link href="https://alexdkfighter.github.io/2024/12/18/sw/github%E4%BD%BF%E7%94%A8/"/>
+    <id>https://alexdkfighter.github.io/2024/12/18/sw/github%E4%BD%BF%E7%94%A8/</id>
+    <published>2024-12-17T16:00:00.000Z</published>
+    <updated>2025-12-02T08:11:06.052Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;基础部分&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#基础部分&quot;&gt;&lt;/a&gt; 基础部分&lt;/h2&gt;
+&lt;p&gt;其实在之前也有给过推荐的一个视频&lt;br /&gt;
+&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="教程" scheme="https://alexdkfighter.github.io/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    
+    <category term="github" scheme="https://alexdkfighter.github.io/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Alex介绍</title>
+    <link href="https://alexdkfighter.github.io/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://alexdkfighter.github.io/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/</id>
+    <published>2024-12-16T16:00:00.000Z</published>
+    <updated>2025-12-02T08:11:03.384Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;alex博客介绍&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#alex博客介绍&quot;&gt;&lt;/a&gt; Alex博客介绍&lt;/h2&gt;
+&lt;p&gt;本博客由华南师范大学AlexD创建&lt;br /&gt;
+希望大家能在这里学到更多&lt;br</summary>
+        
+      
+    
+    
+    
+    <category term="教程" scheme="https://alexdkfighter.github.io/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pwn: pwn环境</title>
+    <link href="https://alexdkfighter.github.io/2024/12/17/pwn/pwn%E7%8E%AF%E5%A2%83/"/>
+    <id>https://alexdkfighter.github.io/2024/12/17/pwn/pwn%E7%8E%AF%E5%A2%83/</id>
+    <published>2024-12-16T16:00:00.000Z</published>
+    <updated>2025-12-02T08:11:13.833Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;pwn环境建造&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#pwn环境建造&quot;&gt;&lt;/a&gt; pwn环境建造&lt;/h1&gt;
+&lt;h2 id=&quot;linux系统&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="教程" scheme="https://alexdkfighter.github.io/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+</feed>
