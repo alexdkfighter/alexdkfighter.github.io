@@ -6,7 +6,7 @@
   <link href="https://alexdkfighter.github.io/atom.xml" rel="self"/>
   
   <link href="https://alexdkfighter.github.io/"/>
-  <updated>2025-12-02T08:11:16.565Z</updated>
+  <updated>2026-03-24T16:50:56.408Z</updated>
   <id>https://alexdkfighter.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kali: 字典生成</title>
+    <link href="https://alexdkfighter.github.io/2026/03/24/pwn/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/"/>
+    <id>https://alexdkfighter.github.io/2026/03/24/pwn/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/</id>
+    <published>2026-03-23T16:00:00.000Z</published>
+    <updated>2026-03-24T16:50:56.408Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;如何生成字典&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#如何生成字典&quot;&gt;&lt;/a&gt; 如何生成字典&lt;/h2&gt;
+&lt;h3 id=&quot;工具crunch&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    
+    <category term="isw" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/isw/"/>
+    
+    
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="#isw" scheme="https://alexdkfighter.github.io/tags/isw/"/>
+    
+  </entry>
   
   <entry>
     <title>pwn: Ropper使用</title>

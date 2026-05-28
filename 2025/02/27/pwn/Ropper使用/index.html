@@ -131,6 +131,7 @@
   </nav>
   <nav id="sub-nav" aria-label="Secondary navigation">
       <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" aria-label="RSS 订阅" target="_blank"></a>
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索" aria-label="搜索"></a>
   </nav>
 </div>
 <header id="header" aria-label="Site header">
@@ -165,15 +166,15 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">9</div>
+    <div class="sidebar-state-number">10</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
-    <div class="sidebar-state-number">2</div>
+    <div class="sidebar-state-number">3</div>
   </div>
   <div class="sidebar-state-tag">
     <div>标签</div>
-    <div class="sidebar-state-number">3</div>
+    <div class="sidebar-state-number">4</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -289,6 +290,14 @@
     </footer>
   </div>
     <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+      <div class="article-nav-link-wrap left">
+          <img data-src="https://i.postimg.cc/nzNXgRXT/i-am-at-your-command-j2-3840x2160.jpg" data-sizes="auto" alt="kali: 字典生成" class="lazyload">
+        <a href="/2026/03/24/pwn/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/" aria-label="前一篇: kali: 字典生成" title="前一篇: kali: 字典生成"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+            kali: 字典生成
+        </h3>
+      </div>
     <div class="article-nav-link-wrap right">
         <img data-src="https://i.postimg.cc/nzNXgRXT/i-am-at-your-command-j2-3840x2160.jpg" data-sizes="auto" alt="pwn: 沙箱入门" class="lazyload">
       <a href="/2025/01/09/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/" aria-label="后一篇: pwn: 沙箱入门"  title="后一篇: pwn: 沙箱入门"></a>
@@ -329,7 +338,7 @@
   <div id="footer-info">
     <div>
       <span class="icon-copyright"></span>
-        2020-2025
+        2020-2026
       <span class="footer-info-sep rotate"></span>
       AlexD
     </div>
@@ -339,10 +348,10 @@
       </div>
       <div>
         <span class="icon-brush"></span>
-        5.1k
+        6.5k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:24
+        00:30
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -375,15 +384,15 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">9</div>
+    <div class="sidebar-state-number">10</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
-    <div class="sidebar-state-number">2</div>
+    <div class="sidebar-state-number">3</div>
   </div>
   <div class="sidebar-state-tag">
     <div>标签</div>
-    <div class="sidebar-state-number">3</div>
+    <div class="sidebar-state-number">4</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -433,6 +442,21 @@
 </nav>
 
     </div>
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
     
 <script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
 
@@ -468,6 +492,33 @@
 <script src="/js/pjax_script.js" data-pjax></script>
 
 
+
+  <script>
+    var ALGOLIA_CONFIG = {
+      logo: "/images/algolia_logo.svg",
+      algolia: {
+        applicationID: "J4ZNBR00VR",
+        apiKey: "2c7c82d3be2f95f5b947b203d43ceb47",
+        indexName: "hexo",
+        hits: {
+          "per_page": parseInt("4")
+        },
+        labels: {
+          "input_placeholder": "搜索.....",
+          "hits_empty": "未发现与 「${query}」相关内容",
+          "hits_stats": "找到${hits}条结果（用时 ${time} ms）"
+        }
+      }
+    };
+  </script>
+  
+<script src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js" integrity="sha384-xvLS0jfKuoREs7pqkRI&#x2F;OI8GcqohO5S+jQz7ZBtQXnsXmD+9jDOOY4cL6dCPzlrk" crossorigin="anonymous" defer></script>
+
+  
+<script src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js" integrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l+M5Q2WH&#x2F;Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous" defer></script>
+
+  
+<script src="/js/algolia_search.js" defer></script>
 
 
   

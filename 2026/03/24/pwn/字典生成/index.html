@@ -1,0 +1,972 @@
+  <!DOCTYPE html>
+  <html lang="zh-CN"  
+      data-theme-mode="auto"
+  >
+  <head>
+  <meta charset="utf-8">
+  
+  
+  
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://alexdkfighter.github.io';</script>
+  <title>
+    kali: 字典生成 | Alex
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish%3A400%2C400italic%2C700%2C700italic%7CNoto+Serif+SC%3A400%2C400italic%2C700%2C700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish%3A400%2C400italic%2C700%2C700italic%7CNoto+Serif+SC%3A400%2C400italic%2C700%2C700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="如何生成字典  工具Crunch  安装：（kali） sudo apt install crunch gzip -d &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;rockyou.txt.gz（rockyou.txt是kali自带的密码底库）  使用：  1. 基本语法 1crunch &lt;min-len&gt; &lt;max-len&gt; [charset] [options]  min">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kali: 字典生成">
+<meta property="og:url" content="https://alexdkfighter.github.io/2026/03/24/pwn/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/index.html">
+<meta property="og:site_name" content="Alex">
+<meta property="og:description" content="如何生成字典  工具Crunch  安装：（kali） sudo apt install crunch gzip -d &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;rockyou.txt.gz（rockyou.txt是kali自带的密码底库）  使用：  1. 基本语法 1crunch &lt;min-len&gt; &lt;max-len&gt; [charset] [options]  min">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-24T16:50:56.408Z">
+<meta property="article:author" content="AlexD">
+<meta property="article:tag" content="#isw">
+<meta property="article:tag" content="pwn基础">
+<meta name="twitter:card" content="summary">
+    <link rel="alternate" href="/atom.xml" title="Alex" type="application/atom+xml">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL&#x2F;toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx&#x2F;1oA&#x2F;0l8ysE" crossorigin="anonymous">
+        
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css" integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz+YI" crossorigin="anonymous">
+
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+  <body>
+      <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script>
+<div id="copy-tooltip"></div>
+<div id="heatmap-tooltip"></div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation">
+        <a class="main-nav-link-wrap" href="/">
+          <div class="main-nav-icon icon rotate">
+              &#xe62b;
+          </div>
+          <span class="main-nav-link">首页</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/archives">
+          <div class="main-nav-icon icon rotate">
+              &#xe62b;
+          </div>
+          <span class="main-nav-link">归档</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/about">
+          <div class="main-nav-icon icon rotate">
+              &#xe62b;
+          </div>
+          <span class="main-nav-link">关于</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/friend">
+          <div class="main-nav-icon icon rotate">
+              &#xe62b;
+          </div>
+          <span class="main-nav-link">友链</span>
+        </span>
+    <a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation">
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" aria-label="RSS 订阅" target="_blank"></a>
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索" aria-label="搜索"></a>
+  </nav>
+</div>
+<header id="header" aria-label="Site header">
+    <picture></picture>
+    <img  fetchpriority="high" src="https://i.postimg.cc/nzNXgRXT/i-am-at-your-command-j2-3840x2160.jpg" alt="kali: 字典生成">
+  <div id="header-outer">
+    <div id="header-title">
+          <span id="logo">
+            <h1 data-aos="slide-up">kali: 字典生成</h1>
+          </span>
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+        </h2>
+    </div>
+  </div>
+</header>
+
+        <div id="content" aria-label="Page content"  class="sidebar-right" >
+          <aside id="sidebar" aria-label="Sidebar">
+  <div class="sidebar-wrapper-container sticky">
+  <div class="sidebar-wrapper">
+    <div class="sidebar-wrap" data-aos="fade-up">
+          <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B8"><span class="toc-number">1.</span> <span class="toc-text"> 如何生成字典</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7crunch"><span class="toc-number">1.1.</span> <span class="toc-text"> 工具Crunch</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85kali"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 安装：（kali）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 使用：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 1. 基本语法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 2. 特殊字符集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%A8%A1%E5%BC%8F%E5%8D%A0%E4%BD%8D%E7%AC%A6-t"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 3. 模式占位符 (-t)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.2.</span> <span class="toc-text"> 常用参数详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.3.</span> <span class="toc-text"> 实战示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 1. 基础用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8%E5%86%85%E7%BD%AE%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 2. 使用内置字符集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%8C%89%E6%A8%A1%E5%BC%8F%E7%94%9F%E6%88%90-t"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 3. 按模式生成 (-t)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E9%99%90%E5%88%B6%E8%BF%9E%E7%BB%AD%E5%AD%97%E7%AC%A6-d"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 4. 限制连续字符 (-d)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%8C%89%E5%A4%A7%E5%B0%8F%E6%88%96%E8%A1%8C%E6%95%B0%E5%88%86%E5%89%B2%E6%96%87%E4%BB%B6-b-c"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 5. 按大小或行数分割文件 (-b, -c)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%8E%8B%E7%BC%A9%E8%BE%93%E5%87%BA-z"><span class="toc-number">1.3.6.</span> <span class="toc-text"> 6. 压缩输出 (-z)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88-p-q"><span class="toc-number">1.3.7.</span> <span class="toc-text"> 7. 排列组合 (-p, -q)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0-s-r"><span class="toc-number">1.3.8.</span> <span class="toc-text"> 8. 断点续传 (-s, -r)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E9%AB%98%E7%BA%A7%E6%A8%A1%E5%BC%8F%E4%B8%8E-l"><span class="toc-number">1.3.9.</span> <span class="toc-text"> 9. 高级模式与 -l</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.4.</span> <span class="toc-text"> 注意事项</span></a></li></ol></li></ol>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="AlexD" class="lazyload">
+  <div class="sidebar-author-name">AlexD</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">10</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">3</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+</div>
+<div class="sidebar-social">
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/alexdkfighter itemprop="url" target="_blank" aria-label="github" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-bilibili sidebar-social-icon">
+      <a href=https://space.bilibili.com/589739890 itemprop="url" target="_blank" aria-label="bilibili" rel="noopener nofollow noreferrer"></a>
+    </div>
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+    </div>
+  </div>
+  <div class="sidebar-widget">
+  </div>
+  </div>
+</aside>
+
+          <section id="main" aria-label="Main content"><article id="post-pwn/字典生成" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link icon-calendar" data-aos="zoom-in">
+    <time datetime="2026-03-23T16:00:00.000Z" itemprop="datePublished">2026-03-24</time>
+    <time style="display: none;" id="post-update-time">2026-03-25</time>
+  </span>
+</div>
+
+        <div class="article-category">
+    <a class="article-category-link" href="/categories/pwn%E5%88%9D%E7%BA%A7/" title="pwn初级">pwn初级</a><a class="article-category-link" href="/categories/pwn%E5%88%9D%E7%BA%A7/isw/" title="isw">isw</a>
+  </div>
+
+    </div>
+    
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+        <h2 id="如何生成字典"><a class="markdownIt-Anchor" href="#如何生成字典"></a> 如何生成字典</h2>
+<h3 id="工具crunch"><a class="markdownIt-Anchor" href="#工具crunch"></a> 工具Crunch</h3>
+<h4 id="安装kali"><a class="markdownIt-Anchor" href="#安装kali"></a> 安装：（kali）</h4>
+<p>sudo apt install crunch<br />
+gzip -d /usr/share/wordlists/rockyou.txt.gz（rockyou.txt是kali自带的密码底库）</p>
+<h4 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用：</h4>
+<h4 id="1-基本语法"><a class="markdownIt-Anchor" href="#1-基本语法"></a> 1. 基本语法</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch &lt;min-len&gt; &lt;max-len&gt; [charset] [options]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>min-len</code>: 生成密码的最小长度。</li>
+<li><code>max-len</code>: 生成密码的最大长度。</li>
+<li><code>charset</code>: 可选，用于生成密码的字符集。</li>
+<li><code>options</code>: 可选，用于控制输出格式、文件分割、起始位置等。</li>
+</ul>
+<h4 id="2-特殊字符集"><a class="markdownIt-Anchor" href="#2-特殊字符集"></a> 2. 特殊字符集</h4>
+<p>如果不指定 <code>charset</code>，Crunch 将使用默认字符集（小写字母+大写字母+数字+符号）。你也可以使用 <code>-f</code>参数调用内置的字符集文件（如 <code>/usr/share/crunch/charset.lst</code>）。</p>
+<table>
+<thead>
+<tr>
+<th>简写</th>
+<th>含义</th>
+<th>简写</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>numeric</code></td>
+<td>0123456789</td>
+<td><code>ualpha</code></td>
+<td>ABCDEFGHIJKLMNOPQRSTUVWXYZ</td>
+</tr>
+<tr>
+<td><code>lalpha</code></td>
+<td>abcdefghijklmnopqrstuvwxyz</td>
+<td><code>symbols</code></td>
+<td>常见特殊符号</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-模式占位符-t"><a class="markdownIt-Anchor" href="#3-模式占位符-t"></a> 3. 模式占位符 (<code>-t</code>)</h4>
+<p>使用 <code>-t</code>参数可以指定密码的固定格式，其中占位符代表不同类型的字符。</p>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>代表类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@</code></td>
+<td>小写字母 (a-z)</td>
+</tr>
+<tr>
+<td><code>,</code></td>
+<td>大写字母 (A-Z)</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>数字 (0-9)</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>特殊符号</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意</strong>：若要在模式中包含 <code>@</code>, <code>,</code>, <code>%</code>, <code>^</code>这些字符本身，需使用 <code>-l</code>参数将其指定为字面量。</p>
+<hr />
+<h3 id="常用参数详解"><a class="markdownIt-Anchor" href="#常用参数详解"></a> 常用参数详解</h3>
+<ul>
+<li>
+<p><code>-o &lt;file&gt;</code>: 将生成的字典输出到指定文件。</p>
+</li>
+<li>
+<p><code>-b &lt;size&gt;[type]</code>: 按文件大小分割字典。<code>type</code>可选 <code>kb</code>, <code>mb</code>, <code>gb</code>或 <code>kib</code>, <code>mib</code>, <code>gib</code>。</p>
+</li>
+<li>
+<p><code>-c &lt;number&gt;</code>: 按行数分割字典，每个文件包含指定数量的密码。</p>
+</li>
+<li>
+<p><code>-d &lt;num&gt;&lt;symbol&gt;</code>: 限制同一字符连续出现的次数。<code>@</code>代表小写字母，<code>%</code>代表数字，<code>^</code>代表符号。例如 <code>-d 2@</code>表示小写字母最多连续出现2次 (<code>aab</code>合法, <code>aaa</code>不合法)。</p>
+</li>
+<li>
+<p><code>-s &lt;string&gt;</code>: 从指定的字符串开始生成，便于断点续传。</p>
+</li>
+<li>
+<p><code>-e &lt;string&gt;</code>: 生成到指定的字符串时停止。</p>
+</li>
+<li>
+<p><code>-f &lt;path&gt; &lt;charset-name&gt;</code>: 调用字符集文件中的预设字符集。</p>
+</li>
+<li>
+<p><code>-p &lt;charset|word1 word2...&gt;</code>: 生成字符的<strong>全排列</strong>（不重复）。此模式下，<code>min-len</code>和 <code>max-len</code>参数失效，但必须填写。</p>
+</li>
+<li>
+<p><code>-q &lt;file&gt;</code>: 读取文件中的每行内容作为元素，进行全排列组合。</p>
+</li>
+<li>
+<p><code>-r</code>: 从上次中断的地方恢复生成（需配合 <code>-o</code>和相同的命令使用）。</p>
+</li>
+<li>
+<p><code>-z &lt;type&gt;</code>: 生成字典后直接压缩。<code>type</code>可选 <code>gzip</code>, <code>bzip2</code>, <code>lzma</code>, <code>7z</code>。</p>
+</li>
+<li>
+<p><code>-u</code>: 不显示进度百分比。</p>
+</li>
+<li>
+<p><code>-i</code>: 改变输出顺序，从列优先变为行优先（如 <code>aaa, baa, caa...</code>）。</p>
+</li>
+</ul>
+<hr />
+<h3 id="实战示例"><a class="markdownIt-Anchor" href="#实战示例"></a> 实战示例</h3>
+<h4 id="1-基础用法"><a class="markdownIt-Anchor" href="#1-基础用法"></a> 1. 基础用法</h4>
+<ul>
+<li><strong>生成 1-3 位纯数字字典</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 1 3 0123456789 -o num1-3.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>生成 1-4 位小写字母字典 (使用默认字符集)</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 1 4 -o lower1-4.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>字符集中包含空格</strong><br />
+使用引号或反斜杠转义</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#方式一：使用引号</span><br><span class="line">crunch 3 3 &quot;ab &quot; -o dict.txt</span><br><span class="line">#方式二：使用反斜杠</span><br><span class="line">crunch 3 3 ab\ -o dict.txt</span><br></pre></td></tr></table></figure>
+<h4 id="2-使用内置字符集"><a class="markdownIt-Anchor" href="#2-使用内置字符集"></a> 2. 使用内置字符集</h4>
+<ul>
+<li><strong>生成 4 位数字字典</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 4 4 -f /usr/share/crunch/charset.lst numeric -o num4.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>生成 2 位大写字母字典</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 2 2 -f /usr/share/crunch/charset.lst ualpha -o upper2.txt</span><br></pre></td></tr></table></figure>
+<h4 id="3-按模式生成-t"><a class="markdownIt-Anchor" href="#3-按模式生成-t"></a> 3. 按模式生成 (<code>-t</code>)</h4>
+<ul>
+<li><strong>生成 6 位纯数字密码</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 6 6 0123456789 -t ###### -o num6.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>生成 <code>admin</code>开头的 8 位密码</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 8 8 -t admin%%%% -o admin.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>生成手机号格式密码 (如 135****2929)</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 11 11 -t 135%%%%2929 -o phone.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>生成 <code>小写字母 + 数字</code>格式的 4 位密码</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 4 4 -t @%%% -o lower_digit.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>生成 <code>小写+大写+数字+符号</code>格式的 8 位密码</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 8 8 -t @,%%^^## -o complex8.txt</span><br></pre></td></tr></table></figure>
+<h4 id="4-限制连续字符-d"><a class="markdownIt-Anchor" href="#4-限制连续字符-d"></a> 4. 限制连续字符 (<code>-d</code>)</h4>
+<ul>
+<li><strong>生成 6 位数字，但相同数字最多连续出现 2 次</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 6 6 0123456789 -d 2% -o num6_limit2.txt</span><br></pre></td></tr></table></figure>
+<h4 id="5-按大小或行数分割文件-b-c"><a class="markdownIt-Anchor" href="#5-按大小或行数分割文件-b-c"></a> 5. 按大小或行数分割文件 (<code>-b</code>, <code>-c</code>)</h4>
+<ul>
+<li><strong>每个文件最大 10MB</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 4 5 -b 10mb -o START</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>每个文件最多 5000 行</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 1 5 -c 5000 -o START</span><br></pre></td></tr></table></figure>
+<h4 id="6-压缩输出-z"><a class="markdownIt-Anchor" href="#6-压缩输出-z"></a> 6. 压缩输出 (<code>-z</code>)</h4>
+<ul>
+<li><strong>生成字典并用 bzip2 压缩</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 4 4 -t @,%^ -o dict.txt -z bzip2</span><br></pre></td></tr></table></figure>
+<h4 id="7-排列组合-p-q"><a class="markdownIt-Anchor" href="#7-排列组合-p-q"></a> 7. 排列组合 (<code>-p</code>, <code>-q</code>)</h4>
+<ul>
+<li><strong>对 “abc” 进行全排列</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 1 1 -p abc -o abc_perm.txt</span><br></pre></td></tr></table></figure>
+<pre><code># 输出: abc acb bac bca cab cba
+</code></pre>
+<ul>
+<li><strong>对多个单词进行全排列</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 1 1 -p dog cat bird -o animals_perm.txt</span><br></pre></td></tr></table></figure>
+<pre><code># 输出: birdcatdog birddogcat catbirddog catdogbird dogbirdcat dogcatbird
+</code></pre>
+<ul>
+<li><strong>从文件读取内容进行排列</strong><br />
+假设 <code>words.txt</code>内容为 <code>hello world kali</code>。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 1 1 -q words.txt -o words_perm.txt</span><br></pre></td></tr></table></figure>
+<h4 id="8-断点续传-s-r"><a class="markdownIt-Anchor" href="#8-断点续传-s-r"></a> 8. 断点续传 (<code>-s</code>, <code>-r</code>)</h4>
+<ul>
+<li><strong>从 <code>99990</code>开始生成 6 位数字字典</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 6 6 0123456789 -s 99990 -o num6.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>如果中途中断，使用 <code>-r</code>恢复</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 6 6 0123456789 -r -o num6.txt</span><br></pre></td></tr></table></figure>
+<h4 id="9-高级模式与-l"><a class="markdownIt-Anchor" href="#9-高级模式与-l"></a> 9. 高级模式与 <code>-l</code></h4>
+<ul>
+<li><strong>在模式中使用字面量 <code>@</code></strong><br />
+想生成 <code>p@ss12!</code>这种密码，需要将 <code>@</code>转义。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 7 7 -t p@ss,%^ -l a@aaaaa -o pass.txt</span><br></pre></td></tr></table></figure>
+<pre><code># -l a@aaaaa 表示第一个字符 'a' 和 '@' 都是字面量，其余 'a' 代表小写字母。
+</code></pre>
+<hr />
+<h3 id="注意事项"><a class="markdownIt-Anchor" href="#注意事项"></a> 注意事项</h3>
+<ol>
+<li>
+<p><strong>字典大小爆炸</strong></p>
+<p>生成的字典文件大小会随长度和字符集呈指数级增长。例如，使用62个字符（a-z, A-Z, 0-9）生成8位密码，总条目为 62⁸ ≈ 2.18万亿。操作前务必用 <code>-b</code>或 <code>-c</code>参数预估并限制大小。</p>
+</li>
+<li>
+<p><strong><code>-p</code>参数的特殊性</strong></p>
+<p>使用 <code>-p</code>进行全排列时，<code>min-len</code>和 <code>max-len</code>参数虽不影响结果，但语法上必须填写。建议将 <code>-o</code>参数放在 <code>-p</code>之前，以防被误解析。</p>
+</li>
+<li>
+<p><strong>特殊字符的转义</strong></p>
+<p>在 Bash 中，<code>&amp;</code>, <code>*</code>, <code>空格</code>, <code>\`,</code>(<code>,</code>)<code>,</code>|<code>,</code>'<code>,</code>&quot;<code>,</code>;<code>,</code>&lt;<code>,</code>&gt;<code>,</code>$<code>等字符有特殊含义。如果它们出现在</code>-t<code>的模式中，需要用``转义或用引号 </code>“”`包裹整个模式。</p>
+</li>
+<li>
+<p><strong>磁盘空间检查</strong></p>
+<p>开始前，请使用 <code>df -h</code>命令检查目标磁盘分区是否有足够的剩余空间，避免因空间不足导致生成失败。</p>
+</li>
+</ol>
+
+    </div>
+    <footer class="article-footer">
+        <a data-aos="zoom-in" href="/2026/03/24/pwn/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2026/03/24/pwn/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/" itemprop="commentCount"></span>
+          留言
+        </a>
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/isw/" rel="tag" title="#isw">#isw</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/pwn%E5%9F%BA%E7%A1%80/" rel="tag" title="pwn基础">pwn基础</a></li></ul>
+
+    </footer>
+  </div>
+    <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+    <div class="article-nav-link-wrap right">
+        <img data-src="https://i.postimg.cc/x8HX2vHQ/uwu-arch-linux-5k-wd-3820x2388.jpg" data-sizes="auto" alt="pwn: Ropper使用" class="lazyload">
+      <a href="/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/" aria-label="后一篇: pwn: Ropper使用"  title="后一篇: pwn: Ropper使用"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+          pwn: Ropper使用
+      </h3>
+    </div>
+  </nav>
+
+</article>
+
+  <section id="comments" data-aos="fade-up">
+    <div class="comment-header">
+        
+      <h2 class="comment-title">说些什么吧！</h2>
+      <div class="comment-selector">
+        <div class="comment-selector-wrap">
+            <div class="selector-item" data-selector="valine">
+              <span>valine</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment-content">
+          <div class="comment valine-comment" data-aos="fade-up"
+            id="valine-comment">
+          </div>
+    </div>
+  </section>
+
+</section>
+        </div>
+        <footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    <div>
+      <span class="icon-copyright"></span>
+        2020-2026
+      <span class="footer-info-sep rotate"></span>
+      AlexD
+    </div>
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+      <div>
+        <span class="icon-brush"></span>
+        6.5k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        00:30
+      </div>
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+  </div>
+</footer>
+
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap">
+        <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B8"><span class="toc-number">1.</span> <span class="toc-text"> 如何生成字典</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7crunch"><span class="toc-number">1.1.</span> <span class="toc-text"> 工具Crunch</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85kali"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 安装：（kali）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 使用：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 1. 基本语法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 2. 特殊字符集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%A8%A1%E5%BC%8F%E5%8D%A0%E4%BD%8D%E7%AC%A6-t"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 3. 模式占位符 (-t)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.2.</span> <span class="toc-text"> 常用参数详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.3.</span> <span class="toc-text"> 实战示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 1. 基础用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8%E5%86%85%E7%BD%AE%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 2. 使用内置字符集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%8C%89%E6%A8%A1%E5%BC%8F%E7%94%9F%E6%88%90-t"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 3. 按模式生成 (-t)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E9%99%90%E5%88%B6%E8%BF%9E%E7%BB%AD%E5%AD%97%E7%AC%A6-d"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 4. 限制连续字符 (-d)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%8C%89%E5%A4%A7%E5%B0%8F%E6%88%96%E8%A1%8C%E6%95%B0%E5%88%86%E5%89%B2%E6%96%87%E4%BB%B6-b-c"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 5. 按大小或行数分割文件 (-b, -c)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%8E%8B%E7%BC%A9%E8%BE%93%E5%87%BA-z"><span class="toc-number">1.3.6.</span> <span class="toc-text"> 6. 压缩输出 (-z)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88-p-q"><span class="toc-number">1.3.7.</span> <span class="toc-text"> 7. 排列组合 (-p, -q)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0-s-r"><span class="toc-number">1.3.8.</span> <span class="toc-text"> 8. 断点续传 (-s, -r)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E9%AB%98%E7%BA%A7%E6%A8%A1%E5%BC%8F%E4%B8%8E-l"><span class="toc-number">1.3.9.</span> <span class="toc-text"> 9. 高级模式与 -l</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.4.</span> <span class="toc-text"> 注意事项</span></a></li></ol></li></ol>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="AlexD" class="lazyload">
+  <div class="sidebar-author-name">AlexD</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">10</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">3</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+</div>
+<div class="sidebar-social">
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/alexdkfighter itemprop="url" target="_blank" aria-label="github" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-bilibili sidebar-social-icon">
+      <a href=https://space.bilibili.com/589739890 itemprop="url" target="_blank" aria-label="bilibili" rel="noopener nofollow noreferrer"></a>
+    </div>
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon rotate">
+            &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+  </div>
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+</nav>
+
+    </div>
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+  <script>
+    var ALGOLIA_CONFIG = {
+      logo: "/images/algolia_logo.svg",
+      algolia: {
+        applicationID: "J4ZNBR00VR",
+        apiKey: "2c7c82d3be2f95f5b947b203d43ceb47",
+        indexName: "hexo",
+        hits: {
+          "per_page": parseInt("4")
+        },
+        labels: {
+          "input_placeholder": "搜索.....",
+          "hits_empty": "未发现与 「${query}」相关内容",
+          "hits_stats": "找到${hits}条结果（用时 ${time} ms）"
+        }
+      }
+    };
+  </script>
+  
+<script src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js" integrity="sha384-xvLS0jfKuoREs7pqkRI&#x2F;OI8GcqohO5S+jQz7ZBtQXnsXmD+9jDOOY4cL6dCPzlrk" crossorigin="anonymous" defer></script>
+
+  
+<script src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js" integrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l+M5Q2WH&#x2F;Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous" defer></script>
+
+  
+<script src="/js/algolia_search.js" defer></script>
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js" integrity="sha384-8LyaidD9GPxQQgLJO&#x2F;WRw&#x2F;O2h3BoNq&#x2F;ApI&#x2F;ecpvM6RsrCz2qP2ppBXUKihP4V&#x2F;2d" crossorigin="anonymous"></script>
+
+  <script>
+    if (!false || !window.matchMedia('(max-width: 768px)').matches) {
+      window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["var(--red-0)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'));
+    }
+  </script>
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "AlexD",
+          title: "kali: 字典生成",
+          url: "https://alexdkfighter.github.io/2026/03/24/pwn/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/",
+          excerpt: "",
+          description: "",
+          stripContent: " 如何生成字典  工具Crunch  安装：（kali） sudo apt install crunch gzip -d /usr/share/wordlists/rockyou.txt.gz（rockyou.txt是kali自带的密码底库）  使用：  1. 基本语法 1crunch &amp;lt;min-len&amp;gt; &amp;lt;max-len&amp;gt; [charset] [options]  min-len: 生成密码的最小长度。 max-len: 生成密码的最大长度。 charset: 可选，用",
+          date: "Tue Mar 24 2026 00:00:00 GMT+0800",
+          updated: "Wed Mar 25 2026 00:50:56 GMT+0800",
+          cover: "https://i.postimg.cc/nzNXgRXT/i-am-at-your-command-j2-3840x2160.jpg",
+        };
+      </script>
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+        
+<script src="/js/tabs.js" data-pjax></script>
+
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+        
+<script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+
+  var commentConfigKeys = ["valine"];
+  var commentConfig = {
+    valine: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        if (container.style.display === 'block') return; // already loaded
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js',
+          'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE+s5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn'
+        );
+        script.onload = () => {
+          var GUEST_INFO = ['nick', 'mail', 'link'];
+          var guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          var recordIP = JSON.parse('true');
+          var highlight = JSON.parse('true');
+          var visitor = JSON.parse('false');
+          var serverURLs = undefined;
+
+          if (window.Valine) {
+            new Valine({
+              el: '.valine-comment',
+              appId: "ZhQh3arEQ70OBKN0kCz2cA0Q-MdYXbMMI",
+              appKey: "U5A0PQFkvb56wV7DIPi3RTL5",
+              placeholder: "Just go go",
+              pageSize: '10',
+              avatar: 'mp',
+              lang: document.documentElement.lang || 'en',
+              recordIP: recordIP,
+              highlight: highlight,
+              visitor: visitor,
+              requiredFields: guest_info,
+              path: window.location.pathname,
+              serverURLs
+            });
+          }
+        };
+        document.head.appendChild(script);
+      }
+    },
+  }
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    // 1. 首先检查localStorage中是否有保存的评论类型
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    // 2. 如果localStorage中有值且对应的评论系统可用，就使用它
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    // 3. 如果localStorage无效，检查配置的默认评论系统
+    if (!defaultComment) {
+      var configDefault = 'valine';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    // 4. 如果前两项都无效，按指定顺序找到第一个可用的评论系统
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    // 隐藏所有评论容器
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    // 按需加载评论系统
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        // 如果已加载，只需显示对应容器
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      // 根据类型加载对应的脚本
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    // 评论组件选择器
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      // 获取要加载的评论系统类型
+      const commentType = item.getAttribute('data-selector');
+
+      // 隐藏所有评论系统
+      hideAllComments();
+
+      // 加载选中的评论系统
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      // 评论组件选择器点击事件
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          // 保存选择器状态
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          // 切换选中状态
+          changeActiveCommentItems(item);
+        });
+      }
+
+      // 检查是否需要加载默认评论系统
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script>
+
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.11.1' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+
+
+  </body>
+  </html>
