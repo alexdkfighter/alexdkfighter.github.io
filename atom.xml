@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>AlexD</name>
+  </author>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <icon>https://alexdkfighter.github.io/icon.png</icon>
+  <id>https://alexdkfighter.github.io/</id>
+  <link href="https://alexdkfighter.github.io/" rel="alternate"/>
+  <link href="https://alexdkfighter.github.io/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, AlexD</rights>
+  <title>Hexo</title>
+  <updated>2026-03-24T16:50:56.408Z</updated>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    <category term="isw" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/isw/"/>
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    <category term="#isw" scheme="https://alexdkfighter.github.io/tags/isw/"/>
+    <id>https://alexdkfighter.github.io/2026/03/24/pwn/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/</id>
+    <link href="https://alexdkfighter.github.io/2026/03/24/pwn/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/"/>
+    <published>2026-03-23T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="如何生成字典"><a class="markdownIt-Anchor" href="#如何生成字典"></a> 如何生成字典</h2>
+<h3 id="工具crunch"><a class="markdownIt-Anchor"]]>
+    </summary>
+    <title>kali: 字典生成</title>
+    <updated>2026-03-24T16:50:56.408Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    <id>https://alexdkfighter.github.io/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/</id>
+    <link href="https://alexdkfighter.github.io/2025/02/27/pwn/Ropper%E4%BD%BF%E7%94%A8/"/>
+    <published>2025-02-26T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="ropper"><a class="markdownIt-Anchor" href="#ropper"></a>]]>
+    </summary>
+    <title>pwn: Ropper使用</title>
+    <updated>2025-12-02T08:11:16.565Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    <id>https://alexdkfighter.github.io/2025/01/09/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/</id>
+    <link href="https://alexdkfighter.github.io/2025/01/09/pwn/%E6%B2%99%E7%AE%B1%E5%85%A5%E9%97%A8/"/>
+    <published>2025-01-08T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>沙箱，用来控制shellcode的。在函数中会有sandbox函数。<br />
+我们用Newstar的一个题为例子讲解。</p>
+<h2 id="如何查看沙箱"><a class="markdownIt-Anchor" href="#如何查看沙箱"></a>]]>
+    </summary>
+    <title>pwn: 沙箱入门</title>
+    <updated>2025-12-02T08:11:08.785Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    <id>https://alexdkfighter.github.io/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/</id>
+    <link href="https://alexdkfighter.github.io/2024/12/27/pwn/canary%E7%88%86%E7%A0%B4/"/>
+    <published>2024-12-26T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="canary爆破原理"><a class="markdownIt-Anchor" href="#canary爆破原理"></a>]]>
+    </summary>
+    <title>pwn: canary爆破</title>
+    <updated>2025-12-02T08:11:12.222Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    <id>https://alexdkfighter.github.io/2024/12/22/pwn/ret2csu/</id>
+    <link href="https://alexdkfighter.github.io/2024/12/22/pwn/ret2csu/"/>
+    <published>2024-12-21T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>也是今天刚搞懂，先写了再说</p>
+<h2 id="使用的原因"><a class="markdownIt-Anchor" href="#使用的原因"></a> 使用的原因</h2>
+<p>其实csu指的是每个程序一定会有的函数:]]>
+    </summary>
+    <title>pwn: ret2csu</title>
+    <updated>2025-12-02T08:11:15.361Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <category term="pwn初级" scheme="https://alexdkfighter.github.io/categories/pwn%E5%88%9D%E7%BA%A7/"/>
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    <id>https://alexdkfighter.github.io/2024/12/19/pwn/%E6%A0%88%E4%B8%8Afmt%E5%AD%A6%E4%B9%A0/</id>
+    <link href="https://alexdkfighter.github.io/2024/12/19/pwn/%E6%A0%88%E4%B8%8Afmt%E5%AD%A6%E4%B9%A0/"/>
+    <published>2024-12-18T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>今天在学fmt，觉得自己会忘记，写下这个</p>
+<h2 id="格式化字符串对应的转义"><a class="markdownIt-Anchor" href="#格式化字符串对应的转义"></a> 格式化字符串对应的转义</h2>
+<p>%d]]>
+    </summary>
+    <title>pwn: 栈上的fmt</title>
+    <updated>2025-12-02T08:11:10.657Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <category term="教程" scheme="https://alexdkfighter.github.io/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    <id>https://alexdkfighter.github.io/2024/12/18/%E5%87%A0%E4%B8%AA%E6%8E%A8%E8%8D%90%E7%9A%84%E9%93%BE%E6%8E%A5/</id>
+    <link href="https://alexdkfighter.github.io/2024/12/18/%E5%87%A0%E4%B8%AA%E6%8E%A8%E8%8D%90%E7%9A%84%E9%93%BE%E6%8E%A5/"/>
+    <published>2024-12-17T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="复现题目"><a class="markdownIt-Anchor" href="#复现题目"></a> 复现题目:</h2>
+<p><a href="https://ctf.xidian.edu.cn/training">NewStar</a><br]]>
+    </summary>
+    <title>ctf: 几个推荐的链接</title>
+    <updated>2025-12-02T08:10:56.686Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <category term="教程" scheme="https://alexdkfighter.github.io/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    <category term="github" scheme="https://alexdkfighter.github.io/tags/github/"/>
+    <id>https://alexdkfighter.github.io/2024/12/18/sw/github%E4%BD%BF%E7%94%A8/</id>
+    <link href="https://alexdkfighter.github.io/2024/12/18/sw/github%E4%BD%BF%E7%94%A8/"/>
+    <published>2024-12-17T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="基础部分"><a class="markdownIt-Anchor" href="#基础部分"></a> 基础部分</h2>
+<p>其实在之前也有给过推荐的一个视频<br />
+<a]]>
+    </summary>
+    <title>sw: git入门使用</title>
+    <updated>2025-12-02T08:11:06.052Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <category term="教程" scheme="https://alexdkfighter.github.io/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    <id>https://alexdkfighter.github.io/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/</id>
+    <link href="https://alexdkfighter.github.io/2024/12/17/Alex%E4%BB%8B%E7%BB%8D/"/>
+    <published>2024-12-16T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="alex博客介绍"><a class="markdownIt-Anchor" href="#alex博客介绍"></a> Alex博客介绍</h2>
+<p>本博客由华南师范大学AlexD创建<br />
+希望大家能在这里学到更多<br]]>
+    </summary>
+    <title>Alex介绍</title>
+    <updated>2025-12-02T08:11:03.384Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <category term="教程" scheme="https://alexdkfighter.github.io/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="新手入门" scheme="https://alexdkfighter.github.io/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/"/>
+    <category term="pwn基础" scheme="https://alexdkfighter.github.io/tags/pwn%E5%9F%BA%E7%A1%80/"/>
+    <id>https://alexdkfighter.github.io/2024/12/17/pwn/pwn%E7%8E%AF%E5%A2%83/</id>
+    <link href="https://alexdkfighter.github.io/2024/12/17/pwn/pwn%E7%8E%AF%E5%A2%83/"/>
+    <published>2024-12-16T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="pwn环境建造"><a class="markdownIt-Anchor" href="#pwn环境建造"></a> pwn环境建造</h1>
+<h2 id="linux系统"><a class="markdownIt-Anchor"]]>
+    </summary>
+    <title>pwn: pwn环境</title>
+    <updated>2025-12-02T08:11:13.833Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>AlexD</name>
+    </author>
+    <id>https://alexdkfighter.github.io/2013/12/24/hello-world/</id>
+    <link href="https://alexdkfighter.github.io/2013/12/24/hello-world/"/>
+    <published>2013-12-24T09:49:32.000Z</published>
+    <summary>
+      <![CDATA[<p>Welcome to <a href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a]]>
+    </summary>
+    <title>Hello World</title>
+    <updated>2026-05-28T11:44:58.418Z</updated>
+  </entry>
+</feed>
