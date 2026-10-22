@@ -1,0 +1,824 @@
+  <!DOCTYPE html>
+  <html lang="zh-CN"  data-theme-mode="auto">
+  <head>
+  <meta charset="utf-8">
+  
+  
+  
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_ex15nbittbh';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://alexdkfighter.github.io';window.REIMU_CONFIG.relative = '/';window.REIMU_CONFIG.dark_mode = {"button":true,"mode":"auto"};</script>
+  <title>
+    给新生做的2025XSWCTF复现（密码篇） | Alex
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="题目地址： CTFblog-challenge&#x2F;2025XSWCTF at main · alexdkfighter&#x2F;CTFblog-challenge 已经上传github了，如果没在群里拿到压缩包可以直接去下载。 密码题使用python做反向很常见。需要安装 1pip install pycryptodome 之后即可正常使用Crypto库。  BruteForce flag: 1xswct">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给新生做的2025XSWCTF复现（密码篇）">
+<meta property="og:url" content="https://alexdkfighter.github.io/2026/10/22/%E7%BB%99%E6%96%B0%E7%94%9F%E5%81%9A%E7%9A%842025XSWCTF%E5%A4%8D%E7%8E%B0%EF%BC%88%E5%AF%86%E7%A0%81%E7%AF%87%EF%BC%89/index.html">
+<meta property="og:site_name" content="Alex">
+<meta property="og:description" content="题目地址： CTFblog-challenge&#x2F;2025XSWCTF at main · alexdkfighter&#x2F;CTFblog-challenge 已经上传github了，如果没在群里拿到压缩包可以直接去下载。 密码题使用python做反向很常见。需要安装 1pip install pycryptodome 之后即可正常使用Crypto库。  BruteForce flag: 1xswct">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-10-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-22T08:02:38.475Z">
+<meta property="article:author" content="AlexD">
+<meta property="article:tag" content="新手入门">
+<meta name="twitter:card" content="summary">
+    <link rel="alternate" href="/atom.xml" title="Alex" type="application/atom+xml">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE" crossorigin="anonymous">
+      <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css" integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz+YI" crossorigin="anonymous">
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+  <body>
+      <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script>
+<div id="copy-tooltip"></div>
+<div id="heatmap-tooltip"></div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation">
+        <a class="main-nav-link-wrap" href="/">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">首页</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/archives">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">归档</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/about">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">关于</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/friend">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">友链</span>
+        </a>
+    <a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation">
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" aria-label="RSS 订阅" target="_blank"></a>
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索" aria-label="搜索"></a>
+  </nav>
+</div>
+<header id="header" aria-label="Site header">
+    <picture></picture>
+    <img  fetchpriority="high" src="https://i.postimg.cc/0jDDFL6t/linux-arch-light-4k-96-3820x2388.jpg" alt="给新生做的2025XSWCTF复现（密码篇）">
+  <div id="header-outer">
+    <div id="header-title">
+          <span id="logo">
+            <h1 data-aos="slide-up">给新生做的2025XSWCTF复现（密码篇）</h1>
+          </span>
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+        </h2>
+    </div>
+  </div>
+</header>
+
+        <div id="content" aria-label="Page content"  class="sidebar-right" >
+          <aside id="sidebar" aria-label="Sidebar">
+  <div class="sidebar-wrapper-container sticky">
+  <div class="sidebar-wrapper">
+    <div class="sidebar-wrap" data-aos="fade-up">
+          <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text"> 题目地址：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bruteforce"><span class="toc-number">2.</span> <span class="toc-text"> BruteForce</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#classic-cipher"><span class="toc-number">3.</span> <span class="toc-text"> classic-cipher</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lagrange"><span class="toc-number">4.</span> <span class="toc-text"> lagrange</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loss-n-3"><span class="toc-number">5.</span> <span class="toc-text"> Loss N-3</span></a></li></ol>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="AlexD" class="lazyload">
+  <div class="sidebar-author-name">AlexD</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">11</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">3</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:13695242581@163.com itemprop="url" target="_blank" aria-label="email" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/alexdkfighter itemprop="url" target="_blank" aria-label="github" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-bilibili sidebar-social-icon">
+      <a href=https://space.bilibili.com/589739890 itemprop="url" target="_blank" aria-label="bilibili" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-steam sidebar-social-icon">
+      <a href=https://steamcommunity.com/id/alexdkfighter/ itemprop="url" target="_blank" aria-label="steam" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-weixin sidebar-social-icon">
+      <a href=Ljj2137742858 itemprop="url" target="_blank" aria-label="weixin" rel="noopener nofollow noreferrer"></a>
+    </div>
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+    </div>
+  </div>
+  <div class="sidebar-widget">
+  </div>
+  </div>
+</aside>
+
+          <section id="main" aria-label="Main content"><article id="post-给新生做的2025XSWCTF复现（密码篇）" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link icon-calendar" data-aos="zoom-in">
+    <time datetime="2026-10-21T16:00:00.000Z" itemprop="datePublished">2026-10-22</time>
+    <time style="display: none;" id="post-update-time">2026-10-22</time>
+  </span>
+</div>
+
+    </div>
+    
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+        <h2 id="题目地址"><a class="markdownIt-Anchor" href="#题目地址"></a> 题目地址：</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/alexdkfighter/CTFblog-challenge/tree/main/2025XSWCTF">CTFblog-challenge/2025XSWCTF at main · alexdkfighter/CTFblog-challenge</a><br />
+已经上传github了，如果没在群里拿到压缩包可以直接去下载。</p>
+<p>密码题使用python做反向很常见。需要安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pycryptodome</span><br></pre></td></tr></table></figure>
+<p>之后即可正常使用Crypto库。</p>
+<h2 id="bruteforce"><a class="markdownIt-Anchor" href="#bruteforce"></a> BruteForce</h2>
+<p>flag:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xswctf&#123;go0d_job!!_m@yb3_y0u_can_be_th3_b3st&#125;</span><br></pre></td></tr></table></figure>
+<p>Icemarshal师傅做的是动态的题，这里为了方便自己写了一个flag之后做成静态的了。<br />
+使用Icemarshal师傅原本的wp：</p>
+<ul>
+<li>这里<code>N</code>看起来很大，但是<code>r</code>很小，所以 $N\% r&lt;r$ 也很小，可以把<code>key</code>直接暴力枚举出来</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.Padding <span class="keyword">import</span> pad</span><br><span class="line"></span><br><span class="line">c = <span class="string">b&#x27;S\xc1\xa9\xce\xc9\x8bf\xbc:\xf5\xc5\xa0\xea\xb1\x10&gt;6Qd*\xca \xc0\xa8\x83\x8f\xec\x03\\X\x85\xc0\x1f\xd7\x1d\x87\xc8\x8fG\x1f@\xb2\x91v\xb0\xf9A\xc7&#x27;</span> <span class="comment">#此处已经替换为我做的静态</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decrypt</span>(<span class="params">cipher, key</span>):</span><br><span class="line">    inv_cipher = AES.new(key, AES.MODE_ECB)</span><br><span class="line">    plain = inv_cipher.decrypt(cipher)</span><br><span class="line">    <span class="keyword">return</span> plain</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">25</span>)):</span><br><span class="line">    key = <span class="built_in">str</span>(r).encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    padded_key = pad(key, AES.block_size)</span><br><span class="line">    flag = decrypt(c, padded_key)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&quot;xswctf&#123;&quot;</span> <span class="keyword">in</span> flag:</span><br><span class="line">        <span class="built_in">print</span>(flag)</span><br><span class="line">        <span class="built_in">print</span>(r)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>由于是暴力算法，运行时间在4~5分钟。</p>
+<h2 id="classic-cipher"><a class="markdownIt-Anchor" href="#classic-cipher"></a> classic-cipher</h2>
+<p>flag:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XSWCTF&#123;h0p3_v1g3n3r3_c@n_help_y0u_f1nd_th3_w4y_t0_cryptography!!&#125;</span><br></pre></td></tr></table></figure>
+<p>Lst4r师傅出的题目<br />
+wp如下：<br />
+解法一：直接使用在线网站 <a target="_blank" rel="noopener" href="https://www.guballa.de/vigenere-solver">https://www.guballa.de/vigenere-solver</a><br />
+解法二：使用卡方法破解</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line">table = string.ascii_lowercase</span><br><span class="line">dic = &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">0.08167</span>,<span class="string">&#x27;b&#x27;</span>: <span class="number">0.01492</span>,<span class="string">&#x27;c&#x27;</span>: <span class="number">0.02782</span>,<span class="string">&#x27;d&#x27;</span>:<span class="number">0.04253</span>,<span class="string">&#x27;e&#x27;</span>: <span class="number">0.12702</span>,<span class="string">&#x27;f&#x27;</span>:<span class="number">0.02228</span>,<span class="string">&#x27;g&#x27;</span>: <span class="number">0.02015</span>,<span class="string">&#x27;h&#x27;</span>:<span class="number">0.06094</span>,<span class="string">&#x27;i&#x27;</span>:<span class="number">0.06966</span>,<span class="string">&#x27;j&#x27;</span>:<span class="number">0.00153</span>,<span class="string">&#x27;k&#x27;</span>:<span class="number">0.00772</span>,<span class="string">&#x27;l&#x27;</span>:<span class="number">0.04025</span>,<span class="string">&#x27;m&#x27;</span>:<span class="number">0.02406</span>,<span class="string">&#x27;n&#x27;</span>:<span class="number">0.06749</span>,<span class="string">&#x27;o&#x27;</span>:<span class="number">0.07507</span>,<span class="string">&#x27;p&#x27;</span>:<span class="number">0.01929</span>,<span class="string">&#x27;q&#x27;</span>:<span class="number">0.00095</span>,<span class="string">&#x27;r&#x27;</span>:<span class="number">0.05987</span>,<span class="string">&#x27;s&#x27;</span>:<span class="number">0.06327</span>,<span class="string">&#x27;t&#x27;</span>:<span class="number">0.09056</span>,<span class="string">&#x27;u&#x27;</span>:<span class="number">0.02758</span>,<span class="string">&#x27;v&#x27;</span>:<span class="number">0.00978</span>,<span class="string">&#x27;w&#x27;</span>:<span class="number">0.02360</span>,<span class="string">&#x27;x&#x27;</span>:<span class="number">0.00150</span>,<span class="string">&#x27;y&#x27;</span>:<span class="number">0.01974</span>,<span class="string">&#x27;z&#x27;</span>:<span class="number">0.00074</span>&#125; </span><br><span class="line"><span class="comment">#obj:待分割字符串  #sec:分割长度</span></span><br><span class="line">ENGV = [dic[ch] <span class="keyword">for</span> ch <span class="keyword">in</span> table]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">transfer</span>(<span class="params">plaintext</span>):</span><br><span class="line">    plain = <span class="string">&quot;&quot;</span></span><br><span class="line">    plaintext = plaintext.lower()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> plaintext:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> string.ascii_lowercase:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            plain += i</span><br><span class="line">    <span class="keyword">return</span> plain  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">split_columns</span>(<span class="params">text: <span class="built_in">str</span>, keylen: <span class="built_in">int</span></span>):</span><br><span class="line">    cols = [<span class="string">&#x27;&#x27;</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(keylen)]</span><br><span class="line">    <span class="keyword">for</span> idx, ch <span class="keyword">in</span> <span class="built_in">enumerate</span>(text):</span><br><span class="line">        cols[idx % keylen] += ch</span><br><span class="line">    <span class="keyword">return</span> cols</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">freq_vec</span>(<span class="params">s: <span class="built_in">str</span></span>):</span><br><span class="line">    n = <span class="built_in">len</span>(s)</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> [<span class="number">0.0</span>]*<span class="number">26</span></span><br><span class="line">    c = Counter(s)</span><br><span class="line">    <span class="keyword">return</span> [c[table[i]]/n <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">chi2_score</span>(<span class="params">col_freq, shift</span>):</span><br><span class="line">    <span class="comment"># 把列“向左”移 s，相当于解密 s；与 ENG 做 χ²</span></span><br><span class="line">    <span class="comment"># χ² 越小越好</span></span><br><span class="line">    <span class="comment"># f_dec[j] = col_freq[(j + shift) % 26]</span></span><br><span class="line">    chi2 = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">        fj = col_freq[(j + shift) % <span class="number">26</span>]</span><br><span class="line">        pj = ENGV[j]</span><br><span class="line">        <span class="keyword">if</span> pj &gt; <span class="number">0</span>:</span><br><span class="line">            chi2 += (fj - pj)**<span class="number">2</span> / pj</span><br><span class="line">    <span class="keyword">return</span> chi2</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_key_by_chi2</span>(<span class="params">text: <span class="built_in">str</span>, keylen: <span class="built_in">int</span></span>):</span><br><span class="line">    key = []</span><br><span class="line">    cols = split_columns(text, keylen)</span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> cols:</span><br><span class="line">        f = freq_vec(col)</span><br><span class="line">        best_s, best_score = <span class="number">0</span>, <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">            sc = chi2_score(f, s)</span><br><span class="line">            <span class="keyword">if</span> sc &lt; best_score:</span><br><span class="line">                best_s, best_score = s, sc</span><br><span class="line">        key.append(table[best_s])</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(key)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">vigenere_decrypt</span>(<span class="params">ciphertext, key</span>):</span><br><span class="line">    ciphertext = ciphertext.lower()</span><br><span class="line">    ks = []</span><br><span class="line">    plaintext = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> key:</span><br><span class="line">        ks.append(<span class="built_in">ord</span>(item) - <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>))</span><br><span class="line">    k = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ciphertext)):</span><br><span class="line">        <span class="keyword">if</span> ciphertext[i] <span class="keyword">not</span> <span class="keyword">in</span> string.ascii_letters:</span><br><span class="line">            plaintext += ciphertext[i]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            plaintext += <span class="built_in">chr</span>((((<span class="built_in">ord</span>(ciphertext[i]) - <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>)) - ks[k % <span class="built_in">len</span>(ks)]) % <span class="number">26</span>) + <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>))</span><br><span class="line">            k += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> plaintext</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;./ciphertext.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        ciphertext = f.read()</span><br><span class="line">    t = transfer(ciphertext)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    best_k = <span class="number">11</span></span><br><span class="line">    key_chi2 = find_key_by_chi2(t, best_k)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;\nChosen key length: <span class="subst">&#123;best_k&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Key by χ²  : <span class="subst">&#123;key_chi2&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    plaintext = vigenere_decrypt(ciphertext, key_chi2)</span><br><span class="line">    <span class="built_in">print</span>(plaintext)</span><br></pre></td></tr></table></figure>
+<h2 id="lagrange"><a class="markdownIt-Anchor" href="#lagrange"></a> lagrange</h2>
+<p>flag:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XSWCTF&#123;N0w_Y0u_Kn0w_Wh4t_1s_L4gr4nge_1nt3rpl4t3!!&#125;</span><br></pre></td></tr></table></figure>
+<p>Lst4r师傅出的，考察拉格朗日插值<br />
+wp：<br />
+注意，此处wp需要在运行环境中安装sage。<br />
+<a target="_blank" rel="noopener" href="https://hvang10.github.io/2024/11/07/SageMath10-x%E6%9C%80%E6%96%B0%E7%89%88%E5%AE%89%E8%A3%85%E6%8C%87%E5%BC%95/">SageMath10.x最新版安装指引 | HvAng’s Nests</a><br />
+可以在平时只使用Arch的wsl，也可以双wsl。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> sage.<span class="built_in">all</span> <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p =  <span class="number">224925654846497232212407499820112116319</span></span><br><span class="line">xs =  [<span class="number">136950830539213461013448512095338902852</span>, <span class="number">90645524202145747422695639082081518889</span>, <span class="number">140899520398747083503130086958862034022</span>, <span class="number">219635405929479956612898957844621342753</span>, <span class="number">44715947864542206469148126413193123214</span>]</span><br><span class="line">cs =  [<span class="number">166421696289478715485099892507023535788</span>, <span class="number">156829338775339856252340109700388309254</span>, <span class="number">62910648280206468904667913241458595200</span>, <span class="number">57849642653735895787492693034633523347</span>, <span class="number">63893859299010613065016621643995053951</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">lagrange</span>(<span class="params">n, x_s, y_s, p</span>):</span><br><span class="line">    PR = PolynomialRing(GF(p), <span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">    x = PR.gen()</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    F = GF(p)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        l_i = F(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            <span class="keyword">if</span> i != j:</span><br><span class="line">                l_i *= (x - x_s[j]) * inverse_mod(x_s[i] - x_s[j], p)</span><br><span class="line">        res += l_i * y_s[i]</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">flag_ls = lagrange(<span class="number">5</span>, xs, cs, p).coefficients()</span><br><span class="line">flag = <span class="string">b&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> flag_ls:</span><br><span class="line">    flag += long_to_bytes(<span class="built_in">int</span>(num))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<h2 id="loss-n-3"><a class="markdownIt-Anchor" href="#loss-n-3"></a> Loss N-3</h2>
+<p>flag:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xswctf&#123;I_d0n&#x27;t_w@nt_to_writ3_@_n3w_fl@g&#125;</span><br></pre></td></tr></table></figure>
+<p>HvAng10师傅的动态题，这里我改成静态了。<br />
+wp：</p>
+<ul>
+<li>简单的欧拉函数运用：$\phi(p^3)&#x3D;p^3-p^2$，之后就是简单的RSA解密</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">p = <span class="number">9043255064959092026084732515631745692195034110748736313755447490771387105451492272245560437914377892807962136885187274122620257191006725543923327422338691</span></span><br><span class="line">c = <span class="number">403441529001432960727362217913369803879762405978094367617279441111293546472116598049018575076717125398333703537583479674930000612995272719152694049932528591385167846813469478672307495642188629264444452496006346646420523747169746504194759029700999224478060374613522358722686409583553535755937852387788345633441836089860895701344488556941015790098196967922301993852641530947776892805401860163192390861876632786236025568386584191109995596903872325458586090366315226</span></span><br><span class="line"><span class="comment"># p跟c当然已经换成我写的静态</span></span><br><span class="line"></span><br><span class="line">phi = p**<span class="number">3</span>-p**<span class="number">2</span></span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">flag = long_to_bytes(<span class="built_in">pow</span>(c, d, p**<span class="number">3</span>)).decode()</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p>简单RSA解密是很快的，秒出答案。</p>
+
+    </div>
+    <footer class="article-footer">
+        <a data-aos="zoom-in" href="/2026/10/22/%E7%BB%99%E6%96%B0%E7%94%9F%E5%81%9A%E7%9A%842025XSWCTF%E5%A4%8D%E7%8E%B0%EF%BC%88%E5%AF%86%E7%A0%81%E7%AF%87%EF%BC%89/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2026/10/22/%E7%BB%99%E6%96%B0%E7%94%9F%E5%81%9A%E7%9A%842025XSWCTF%E5%A4%8D%E7%8E%B0%EF%BC%88%E5%AF%86%E7%A0%81%E7%AF%87%EF%BC%89/" itemprop="commentCount"></span>
+          留言
+        </a>
+        <a class="article-category-link" href="/categories/%E6%95%99%E7%A8%8B/" title="教程" data-aos="zoom-in">教程</a>
+
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/" rel="tag" title="新手入门">新手入门</a></li></ul>
+
+    </footer>
+  </div>
+    <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+    <div class="article-nav-link-wrap right">
+        <img data-src="https://i.postimg.cc/nzNXgRXT/i-am-at-your-command-j2-3840x2160.jpg" data-sizes="auto" alt="kali: 字典生成" class="lazyload">
+      <a href="/2026/03/24/pwn/%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90/" aria-label="后一篇: kali: 字典生成"  title="后一篇: kali: 字典生成"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+          kali: 字典生成
+      </h3>
+    </div>
+  </nav>
+
+</article>
+
+  <section id="comments" data-aos="fade-up">
+    <div class="comment-header">
+        
+      <h2 class="comment-title">说些什么吧！</h2>
+      <div class="comment-selector">
+        <div class="comment-selector-wrap">
+            <div class="selector-item" data-selector="valine">
+              <span>valine</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment-content">
+          <div class="comment valine-comment" data-aos="fade-up"
+            id="valine-comment">
+          </div>
+    </div>
+  </section>
+
+</section>
+        </div>
+        <footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    <div>
+      <span class="icon-copyright"></span>
+        2020-2026
+        <span class="footer-info-sep rotate"></span>
+      AlexD
+    </div>
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+      <div>
+        <span class="icon-brush"></span>
+        7.5k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        00:36
+      </div>
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+  </div>
+</footer>
+
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap">
+        <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text"> 题目地址：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bruteforce"><span class="toc-number">2.</span> <span class="toc-text"> BruteForce</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#classic-cipher"><span class="toc-number">3.</span> <span class="toc-text"> classic-cipher</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lagrange"><span class="toc-number">4.</span> <span class="toc-text"> lagrange</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loss-n-3"><span class="toc-number">5.</span> <span class="toc-text"> Loss N-3</span></a></li></ol>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="AlexD" class="lazyload">
+  <div class="sidebar-author-name">AlexD</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">11</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">3</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:13695242581@163.com itemprop="url" target="_blank" aria-label="email" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/alexdkfighter itemprop="url" target="_blank" aria-label="github" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-bilibili sidebar-social-icon">
+      <a href=https://space.bilibili.com/589739890 itemprop="url" target="_blank" aria-label="bilibili" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-steam sidebar-social-icon">
+      <a href=https://steamcommunity.com/id/alexdkfighter/ itemprop="url" target="_blank" aria-label="steam" rel="noopener nofollow noreferrer"></a>
+    </div>
+    <div class="icon-weixin sidebar-social-icon">
+      <a href=Ljj2137742858 itemprop="url" target="_blank" aria-label="weixin" rel="noopener nofollow noreferrer"></a>
+    </div>
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+  </div>
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+</nav>
+
+    </div>
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" loading="lazy" decoding="async" fetchpriority="low"/>
+        </div>
+      </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+  <script>
+    var ALGOLIA_CONFIG = {
+      logo: "/images/algolia_logo.svg",
+      algolia: {
+        applicationID: "J4ZNBR00VR",
+        apiKey: "2c7c82d3be2f95f5b947b203d43ceb47",
+        indexName: "hexo",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": "搜索.....",
+          "hits_empty": "未发现与 「${query}」相关内容",
+          "hits_stats": "找到${hits}条结果（用时 ${time} ms）"
+        }
+      }
+    };
+  </script>
+  
+<script src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js" integrity="sha384-xvLS0jfKuoREs7pqkRI&#x2F;OI8GcqohO5S+jQz7ZBtQXnsXmD+9jDOOY4cL6dCPzlrk" crossorigin="anonymous" defer></script>
+
+  
+<script src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js" integrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l+M5Q2WH&#x2F;Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous" defer></script>
+
+  
+<script src="/js/algolia_search.js" defer></script>
+
+
+  <script>
+    var setupFirework = () => {
+      if (!false || !window.matchMedia('(max-width: 768px)').matches) {
+        window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["var(--red-0)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'));
+      }
+    }
+  </script>
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js" integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8+pUoWX8n1rgq282T" crossorigin="anonymous" onload="setupFirework()" defer></script>
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "AlexD",
+          title: "给新生做的2025XSWCTF复现（密码篇）",
+          url: "https://alexdkfighter.github.io/2026/10/22/%E7%BB%99%E6%96%B0%E7%94%9F%E5%81%9A%E7%9A%842025XSWCTF%E5%A4%8D%E7%8E%B0%EF%BC%88%E5%AF%86%E7%A0%81%E7%AF%87%EF%BC%89/",
+          excerpt: "",
+          description: "",
+          stripContent: " 题目地址： CTFblog-challenge/2025XSWCTF at main · alexdkfighter/CTFblog-challenge 已经上传github了，如果没在群里拿到压缩包可以直接去下载。 密码题使用python做反向很常见。需要安装 1pip install pycryptodome 之后即可正常使用Crypto库。  BruteForce flag: 1xswctf&amp;#123;go0d_job!!_m@yb3_y0u_can_be_th3_b3st&amp;#125; ",
+          date: "Thu Oct 22 2026 00:00:00 GMT+0800",
+          updated: "Thu Oct 22 2026 16:02:38 GMT+0800",
+          cover: "https://i.postimg.cc/0jDDFL6t/linux-arch-light-4k-96-3820x2388.jpg",
+        };
+      </script>
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+<script src="/js/tabs.js" data-pjax defer></script>
+
+      <script type="module" data-pjax>
+        (async () => {
+          const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+          const initPswp = (gallery, children) => {
+            if (_$$(`${gallery} ${children}`).length > 0) {
+              new PhotoSwipeLightbox({
+                gallery,
+                children,
+                pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+              }).init();
+            }
+          }
+          const pswp = () => {
+            initPswp('.article-entry', 'a.article-gallery-item');
+            initPswp('.article-gallery', 'a.article-gallery-item');
+          }
+          pswp();
+        })();
+      </script>
+        
+
+<script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+
+  var commentConfigKeys = ["valine"];
+  var commentConfig = {
+    valine: {
+      enable: true,
+      load: async () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        if (container.style.display === 'block') return; // already loaded
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js',
+          'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE+s5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn'
+        );
+        script.onload = () => {
+          var GUEST_INFO = ['nick', 'mail', 'link'];
+          var guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          var recordIP = JSON.parse('true');
+          var highlight = JSON.parse('true');
+          var visitor = JSON.parse('false');
+          var serverURLs = undefined;
+
+          if (window.Valine) {
+            new Valine({
+              el: '.valine-comment',
+              appId: "ZhQh3arEQ70OBKN0kCz2cA0Q-MdYXbMMI",
+              appKey: "U5A0PQFkvb56wV7DIPi3RTL5",
+              placeholder: "Just go go",
+              pageSize: '10',
+              avatar: 'mp',
+              lang: document.documentElement.lang || 'en',
+              recordIP: recordIP,
+              highlight: highlight,
+              visitor: visitor,
+              requiredFields: guest_info,
+              path: window.location.pathname,
+              serverURLs
+            });
+          }
+        };
+        document.head.appendChild(script);
+      }
+    },
+  }
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    // 1. 首先检查localStorage中是否有保存的评论类型
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    // 2. 如果localStorage中有值且对应的评论系统可用，就使用它
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    // 3. 如果localStorage无效，检查配置的默认评论系统
+    if (!defaultComment) {
+      var configDefault = 'waline';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    // 4. 如果前两项都无效，按指定顺序找到第一个可用的评论系统
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false,
+      utterances: false,
+      beaudar: false,
+      disqus: false,
+    };
+
+    // 隐藏所有评论容器
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    // 按需加载评论系统
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        // 如果已加载，只需显示对应容器
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      // 根据类型加载对应的脚本
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    // 评论组件选择器
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      // 获取要加载的评论系统类型
+      const commentType = item.getAttribute('data-selector');
+
+      // 隐藏所有评论系统
+      hideAllComments();
+
+      // 加载选中的评论系统
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      // 评论组件选择器点击事件
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          // 保存选择器状态
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          // 切换选中状态
+          changeActiveCommentItems(item);
+        });
+      }
+
+      // 检查是否需要加载默认评论系统
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script>
+
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.12.6' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    <script data-pjax>
+      var __katexTagOverflowHandler;
+      if (__katexTagOverflowHandler) {
+        window.removeEventListener("resize", __katexTagOverflowHandler);
+      }
+      __katexTagOverflowHandler = function() {
+        _$$(".katex-display").forEach(function(elem) {
+          var ts = elem.querySelectorAll(".tag");
+          var eqns = elem.querySelectorAll(".base");
+          if (ts.length === 0 || eqns.length === 0) return;
+          var t = ts[0];
+          var lastEqn = eqns[eqns.length - 1];
+          var firstEqn = eqns[0];
+          if (lastEqn.getBoundingClientRect().right > t.getBoundingClientRect().left) {
+            t.classList.add("tag-overflowed");
+          } else if (firstEqn.getBoundingClientRect().left - elem.getBoundingClientRect().left >= t.offsetWidth / 2) {
+            t.classList.remove("tag-overflowed");
+          }
+        });
+      };
+      window.addEventListener("resize", __katexTagOverflowHandler);
+      window.katexTagOverflowHandler = __katexTagOverflowHandler;
+    </script>
+      <script>
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", katexTagOverflowHandler, { once: true });
+        } else {
+          katexTagOverflowHandler();
+        }
+      </script>
+
+
+
+  </body>
+  </html>
